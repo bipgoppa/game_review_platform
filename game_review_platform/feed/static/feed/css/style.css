@@ -1,0 +1,33 @@
+body {
+    background-color: #333d3c;
+    color: #f0e9d2;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* or space-around, or space-evenly */
+  background-color: #333d3c;
+  padding: 15px 30px; /* horizontal padding to add space at edges */
+}
+
+.top-rectangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px; /* same as navbar height */
+  background-color: #555; /* pick any color */
+  z-index: -1; /* behind navbar */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  margin: 0;  /* Remove margin */
+  padding: 10px 0; /* Optional padding for spacing */
+}

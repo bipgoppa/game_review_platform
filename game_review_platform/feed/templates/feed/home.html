@@ -1,10 +1,27 @@
+{% load static %}
+
+a
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
     <title>Feed Page</title>
 </head>
-<body>
-    <h1>Welcome to the Feed App!</h1>
-    <p>This is your customizable page inside the feed app.</p>
+
+
+<body style="background-color: #333d3c">
+    <h1 style="text-align: center; color: #eae6dc">Welcome to the Feed App!</h1>
+    <p>.</p>
+    <img src="{% static 'feed/images/logo.png' %}" alt="Picture of our logo" width="80" style="position: absolute; top: 0px; left: 0px;">>
+    
+<nav class="navbar">
+<a href="/" class="nav-item">Home</a>
+<a href="/about/" class="nav-item">About</a>
+<a href="/contact/" class="nav-item">Contact</a>
+<a href="/blog/" class="nav-item">Blog</a>
+</nav>
+
+<div class="top-rectangle"></div>
+
 </body>
 </html>
