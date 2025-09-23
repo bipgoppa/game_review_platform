@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponse
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -14,6 +15,12 @@ def user_login(request):
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'login/login.html')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
 
 def home(request):
     return HttpResponse("Welcome! You are logged in.")
