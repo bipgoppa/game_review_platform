@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'feed',
+<<<<<<< HEAD
     'IGDReviews',
+=======
+    'login',
+>>>>>>> ae626d7899d9b33aa42ff6945008103d10bd2c71
 ]
 
 MIDDLEWARE = [
