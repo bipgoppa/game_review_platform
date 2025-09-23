@@ -23,5 +23,12 @@
 
 <div class="top-rectangle"></div>
 
+
+    <ul>
+        {%for x in myReviews%}
+        <li>{{x.game}} - {{x.cover_art }} - Play time: {{x.playtime }} - {{x.title}} - {{x.body}} - {{x.created_at}}</li>
+        {%endfor%}
+    </ul>
+
 </body>
 </html>
