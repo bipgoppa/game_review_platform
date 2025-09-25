@@ -4,13 +4,9 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly; /* or space-around, or space-evenly */
-  background-color: transparent;
-  padding: 15px 30px; /* horizontal padding to add space at edges */
-  margin-top: -15px; 
+header {
+  margin: 0;  
+  padding: 10px 0; 
 }
 
 .top-rectangle {
@@ -18,9 +14,9 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 110px; /* same as navbar height */
-  background-color: #555; /* pick any color */
-  z-index: -1; /* behind navbar */
+  height: 110px; 
+  background-color: #555;
+  z-index: -1; 
 }
 
 html, body {
@@ -28,12 +24,112 @@ html, body {
   padding: 0;
 }
 
-header {
-  margin: 0;  /* Remove margin */
-  padding: 10px 0; /* Optional padding for spacing */
-}
-
 img, div, nav, section {
   max-width: 100%;
   box-sizing: border-box;
 }
+
+img {
+  z-index: 2;
+}
+
+.navbar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly; 
+  background-color: #555555;
+  padding: 15px 30px; 
+  margin-top: 0px; 
+  z-index: 0;
+}
+
+.nav-item {
+  color: rgb(174, 174, 174);
+  text-decoration: none;
+  outline-offset: 2px;
+  transition: color 0.3s ease;
+}
+
+.nav-item:link,
+.nav-item:visited {
+  color: #333d3c;
+}
+
+.nav-item:hover {
+  color: rgb(0, 255, 0);
+  text-decoration: underline;
+}
+
+.nav-item:active {
+  color: rgb(255, 255, 0);
+}
+
+.nav-item:focus {
+  outline: 2px solid #0f0;
+  outline-offset: 2px;
+}
+
+.nav-section {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #444; 
+}
+
+#reviewBox {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 0 30px 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line; 
+
+}
+
+#reviewBox2 {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 10px 30px 0; /* top, right 10px, bottom 30px, left 0 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line;
+  float: right; /* Align this box to the right */
+  clear: both; }
+
+#reviewBox3 {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 0 30px 10px; /* top 30px, right 0, bottom 30px, left 10px */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line;
+  min-height: 490px;
+  clear: both; 
+}
+

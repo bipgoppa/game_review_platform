@@ -1,27 +1,28 @@
-{% load static %}
-
-
 <!DOCTYPE html>
 <html>
 <head>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
     <title></title>
 </head>
 
 
-<body style="background-color: #333d3c">
-    <h1 style="text-align: center; color: #eae6dc">Your Feed</h1>
+<body>
+    <h1 style="text-align: center; color: #ffffff">Your Feed</h1>
     <p></p>
-    <img src="{% static 'feed/images/logo.png' %}" alt="Picture of our logo" width="80" style="position: absolute; top: 0px; left: 0px;">
+    <img src="{% static 'feed/images/logo.png' %}" z-index="" alt="Picture of our logo" width="80" style="position: absolute; top: 0px; left: 0px;">
     
 <nav class="navbar">
-<a href="/" class="nav-item">Feed</a>
+<a href="/feed/" class="nav-item">Feed</a>
 <a href="/My-Profile/" class="nav-item">My Profile</a>
-<a href="/Search/" class="nav-item">Search</a>
 <a href="/Friends/" class="nav-item">Friends</a>
+<a href="/Search/" class="nav-item">Search</a>
 </nav>
 
 <div class="top-rectangle"></div>
 
+<div id="reviewBox"></div>
+<div id="reviewBox2"></div>
+<div id="reviewBox3"></div>
 </body>
 </html>
