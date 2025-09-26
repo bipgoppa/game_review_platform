@@ -1,22 +1,5 @@
-
 <form method="post" action="{% url 'search-game' %}">
-
-{%csrf_token%}
-{{form.as_p}}
-<button type="submit">search</button>
+    {% csrf_token %}
+    <input type="text" name="search_query" placeholder="Search for a game..." required>
+    <button type="submit">Search</button>
 </form>
-
-<h2>Results </h2>
-{%if results %}
-    <ul>
-        {%for game in results%}
-            <li>
-                <a href = "{% url 'create-review' game.id %}">
-                    Review "{{ game.name}}"
-                </a>
-            </li>
-        {%endfor%}
-    </ul>
-    {%else%}
-    <p>No Results Found!</p>
-{%endif%}

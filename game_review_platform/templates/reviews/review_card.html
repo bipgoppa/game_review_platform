@@ -1,0 +1,90 @@
+<style>
+    /* This CSS can be moved to your main stylesheet */
+    .review-card {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: #3b756e;
+        width: 550px;       
+        flex-shrink: 0;
+    }
+    .review-cover-art {
+        width: 150px;
+        height: auto; /* This lets the height adjust to the image's aspect ratio */
+        object-fit: contain; /* This ensures the entire image fits */
+        border-radius: 4px;
+        flex-shrink: 0; 
+    }
+    .review-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1; /* Allows this section to take up remaining space */
+    }
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 1px solid #00f4d8;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .review-header h2 {
+        margin: 0;
+        font-size: 1.4em;
+    }
+    .review-playtime {
+        font-size: 0.9em;
+        color: #00f4d8;
+    }
+    .review-title {
+        margin: 0 0 10px 0;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .review-body {
+        flex-grow: 1; /* Pushes the date to the bottom */
+        margin: 0;
+        line-height: 1.6;
+    }
+    .review-timestamp {
+        font-size: 0.8em;
+        color: #00f4d8;
+        margin: 0px;
+    }
+    .review-footer {
+    display: flex;
+    justify-content: space-between; /* This is the key change */
+    align-items: center;
+    margin-top: 15px;
+    }
+    .review-stars {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #00f4d8; /* Match your body color or choose another */
+    margin: 0; /* Remove default paragraph margin */
+    }
+    
+</style>
+
+<div class="review-card">
+    <img src="{{ review.cover_art}}" class="review-cover-art">
+
+    <div class="review-content">
+        <div class="review-header">
+            <h2>{{ review.game }}</h2>
+            <span class="review-playtime">Play time: {{ review.playtime }} hrs</span>
+        </div>
+
+        <h3 class="review-title">{{ review.title }}</h3>
+
+        <p class="review-body">{{ review.body }}</p>
+
+         <div class="review-footer">
+            <p class="review-stars">⭐ {{ review.stars }} / 5</p>
+            <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>
+        </div>
+    </div>
+</div>

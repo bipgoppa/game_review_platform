@@ -23,11 +23,12 @@ def search_game_view(request):
     # This context will be used for both GET requests and POST requests (valid or not)
     context = {
         'form': form, 
-        'results': search_results
+        'results': search_results,
+        'query': query
     }
     
     # Render the page with the context
-    return render(request, 'reviews/search_results.html', context)
+    return render(request, 'reviews/search_results_page.html', context)
     
 def create_review_view(request, game_id):
     game_details = get_igdb_game_details(game_id)

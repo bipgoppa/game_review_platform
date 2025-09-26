@@ -2,7 +2,7 @@ from django import forms
 from .models import Review
 
 class GameSearchForm(forms.Form):
-    search_query = forms.CharField(label = 'Search for a Game', max_length = 100, widget = forms.TextInput(attrs={'placeholder' : 'e.g., Elden Ring'}))
+    search_query = forms.CharField(label = 'Search for a Game', max_length = 100, widget = forms.TextInput(attrs={'placeholder' : 'Enter Search e.g., Elden Ring'}))
 
 class ReviewForm(forms.ModelForm):
     class Meta:
