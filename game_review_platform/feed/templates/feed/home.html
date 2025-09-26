@@ -18,6 +18,7 @@
 <a href="/" class="nav-item">Feed</a>
 <a href="/My-Profile/" class="nav-item">My Profile</a>
 <a href="/Search/" class="nav-item">Search</a>
+{%include 'reviews/search_results.html'%}
 <a href="/Friends/" class="nav-item">Friends</a>
 </nav>
 
@@ -25,9 +26,19 @@
 
 
     <ul>
-        {%for x in myReviews%}
-        <li>{{x.game}} - {{x.cover_art }} - Play time: {{x.playtime }} - {{x.title}} - {{x.body}} - {{x.created_at}}</li>
-        {%endfor%}
+        {% for x in myReviews %}
+    <li>
+        <img src="{{ x.cover_art }}" width="100"> -
+
+        
+        {{ x.game }} -
+        
+        Play time: {{ x.playtime }} -
+        {{ x.title }} -
+        {{ x.body }} -
+        {{ x.created_at }}
+    </li>
+{% endfor %}
     </ul>
 
 </body>

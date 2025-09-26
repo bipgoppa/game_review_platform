@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# load environment variables
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -27,6 +31,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#getting IGDB Information
+
+IGDB_CLIENT_ID = os.environ.get('IGDB_CLIENT_ID') 
+
+IGDB_CLIENT_SECRET = os.environ.get('IGDB_CLIENT_SECRET')
+
+IGDB_ACCESS_TOKEN = os.environ.get('IGDB_ACCESS_TOKEN')
+
 
 # Application definition
 
@@ -38,11 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'feed',
-<<<<<<< HEAD
     'IGDReviews',
-=======
     'login',
->>>>>>> ae626d7899d9b33aa42ff6945008103d10bd2c71
 ]
 
 MIDDLEWARE = [
@@ -60,7 +69,7 @@ ROOT_URLCONF = 'game_review_platform.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

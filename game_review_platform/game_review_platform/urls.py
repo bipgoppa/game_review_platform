@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from IGDReviews import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),
     path('', include('feed.urls')),
+
+    path('search/', views.search_game_view, name = 'search-game'),
+    path('review/new/<int:game_id>/', views.create_review_view, name = 'create-review')
 
 ]
