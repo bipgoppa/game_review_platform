@@ -1,0 +1,13 @@
+{% if game %}
+    <h1>Write a Review for: {{ game.name }}</h1>
+    {% if game.cover %}
+        
+        <img src="{{ game.cover.url_big }}" alt="Cover for {{ game.name }}">
+    {% endif %}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>

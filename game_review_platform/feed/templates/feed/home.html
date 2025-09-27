@@ -17,11 +17,22 @@
 <nav class="navbar">
 <a href="/" class="nav-item">Feed</a>
 <a href="/My-Profile/" class="nav-item">My Profile</a>
-<a href="/Search/" class="nav-item">Search</a>
 <a href="/Friends/" class="nav-item">Friends</a>
+{%include 'reviews/search_results.html'%}
 </nav>
 
 <div class="top-rectangle"></div>
 
+<ul>
+        <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 15px; /* Adds space below the scrollbar */
+    ">
+        {% for x in myReviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% endfor %}
+        </div>
+</ul>
 </body>
 </html>

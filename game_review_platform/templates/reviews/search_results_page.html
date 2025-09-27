@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search for a Game to Review</h1>
+
+    {% include "reviews/search_results.html" %}
+
+    <hr>
+
+    {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+        
+        {% if results %}
+            <ul>
+                {% for game in results %}
+                    <li>
+                        {% if game.cover_art %}
+                            <img src="{{ game.cover_art }}">
+                        {% endif %}
+                        
+                        {{ game.name }}
+                        
+                        - <a href="/review/new/{{ game.id }}/">Write a review</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No games found matching your search.</p>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>
