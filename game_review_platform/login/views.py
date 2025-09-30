@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponse
+<<<<<<< HEAD
 from .forms import LoginForm
+=======
+from django.contrib.auth.decorators import login_required
+>>>>>>> 22e82a4f5cb12518f0c14652c1d9d2eb871778f8
 
 
 def user_login(request):
@@ -27,8 +31,13 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 
-
+@login_required
 def home(request):
     return HttpResponse("Welcome! You are logged in.")
+
+def dashboard(request):
+    return render(request, 'home.html')
+
+
 
 # Create your views here.

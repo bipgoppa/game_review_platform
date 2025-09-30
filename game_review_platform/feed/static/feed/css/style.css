@@ -8,7 +8,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-evenly; /* or space-around, or space-evenly */
-  background-color: transparent;
+  background-color: red;
   padding: 15px 30px; /* horizontal padding to add space at edges */
   margin-top: -15px; 
 }
@@ -26,6 +26,7 @@ body {
 html, body {
   margin: 0;
   padding: 0;
+  
 }
 
 header {
@@ -36,4 +37,12 @@ header {
 img, div, nav, section {
   max-width: 100%;
   box-sizing: border-box;
+}
+
+.horizontal-scroll-container {
+    display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 15px; /* Adds space below the scrollbar */
+    
 }
