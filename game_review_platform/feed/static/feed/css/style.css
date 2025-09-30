@@ -8,9 +8,11 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-evenly; /* or space-around, or space-evenly */
-  background-color: red;
+  background-color: transparent;
+  align-items: center;
   padding: 15px 30px; /* horizontal padding to add space at edges */
   margin-top: -15px; 
+  
 }
 
 .top-rectangle {

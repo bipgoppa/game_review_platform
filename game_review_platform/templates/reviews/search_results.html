@@ -1,4 +1,66 @@
-<form method="post" action="{% url 'search-game' %}">
+<style>
+
+/* ==================================
+    SEARCH FORM STYLES
+==================================
+*/
+
+/* Main container for the form */
+.search-form {
+    display: flex; /* Aligns the input and button side-by-side */
+    background-color: #4a5453; /* A slightly lighter background than the body */
+    border-radius: 50px; /* Creates the pill shape */
+    padding: 5px; /* Adds a little space inside the container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 400px; /* Sets a maximum width for the form */
+}
+
+/* The text input field */
+.search-form input[type="text"] {
+    flex-grow: 1; /* Allows the input to take up all available space */
+    padding: 10px 15px; /* Comfortable padding inside the input */
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    
+    border: none; /* Removes the default browser border */
+    background-color: transparent; /* Makes the input's background see-through */
+    color: #f0e9d2; /* Light text color to match your theme */
+}
+
+/* Removes the outline that appears when you click on the input */
+.search-form input[type="text"]:focus {
+    outline: none;
+}
+
+/* Style for the placeholder text */
+.search-form input[type="text"]::placeholder {
+    color: #a0a0a0; /* A lighter gray for the placeholder */
+}
+
+/* The search button */
+.search-form button {
+    padding: 8px 20px; /* Sets the button size */
+    font-size: 1em;
+    font-weight: bold;
+    
+    border: none; /* Removes the default browser border */
+    border-radius: 30px; /* Makes the button a rounded pill shape */
+    
+    background-color: #f0e9d2; /* Light background to stand out */
+    color: #333d3c; /* Dark text color */
+    
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
+}
+
+/* Darkens the button slightly when you hover over it */
+.search-form button:hover {
+    background-color: #d8d3c5;
+}
+
+</style>
+
+<form class="search-form" method="post" action="{% url 'search-game' %}">
     {% csrf_token %}
     <input type="text" name="search_query" placeholder="Search for a game..." required>
     <button type="submit">Search</button>
