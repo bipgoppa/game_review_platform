@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Account</title>
+    </head>
+    <body>
+        <div class='form-container'>
+            <h2>Create Your Account</h2>
+            <form method='POST'>
+                {% csrf_token %}
+                {{ form.non_field_errors}}
+
+                <label for='{{ form.username.id_for_label }}'>Username:</label>
+                {{ form.username }}
+
+                <label for='{{ form.email.id_for_label }}'}>Email:</label>
+                {{ form.email }}
+
+                <label for='{{ form.password1.id_for_label }}'>Password:</label>
+                {{ form.password1 }}
+
+                <label for='{{ form.password2.id_for_label }}'>Confirm Password:</label>
+                {{ form.password2 }}
+
+                <button type='submit'>Register</button>
+            </form>
+        </div>
+    </body>
+</html>
