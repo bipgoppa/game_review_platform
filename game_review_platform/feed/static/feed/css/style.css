@@ -79,62 +79,6 @@ img {
   border-right: 1px solid #444; 
 }
 
-#reviewBox {
-  width: 994px;
-  min-height: 490px;
-  border: 2px solid #0080ff;
-  border-radius: 50px;
-  background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 0 30px 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
-  transition: all 0.5s ease-in-out;
-  white-space: pre-line; 
-  box-sizing: border-box;
-
-}
-
-#reviewBox2 {
-  width: 994px;
-  min-height: 490px;
-  border: 2px solid #0080ff;
-  border-radius: 50px;
-  background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 10px 60px 0; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
-  transition: all 0.5s ease-in-out;
-  white-space: pre-line;
-  float: right; 
-  clear: both; 
-}
-
-#reviewBox3 {
-  width: 994px;
-  min-height: 490px;
-  border: 2px solid #0080ff;
-  border-radius: 50px;
-  background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 0 30px 10px; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
-  transition: all 0.5s ease-in-out;
-  white-space: pre-line;
-  min-height: 490px;
-  clear: both; 
-}
 
 .review-wrapper {
   display: flex;
@@ -160,4 +104,39 @@ img {
 
   text-align: center;      /* center text inside */
   box-sizing: border-box;
+}
+
+#reviewBox,
+#reviewBox2,
+#reviewBox3 {
+  display: block;
+  position: relative;
+  width: 90%;
+  max-width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #f0e9d2;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 40px auto; /* uniform gap top & bottom */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line;
+  box-sizing: border-box;
+  clear: both; 
+}
+
+#reviewBox,
+#reviewBox3 {
+  margin-left: 10px;
+  margin-right: auto;
+}
+
+#reviewBox2 {
+  margin-left: auto;
+  margin-right: 10px;
 }
