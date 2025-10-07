@@ -93,6 +93,7 @@ img {
   line-height: 1.5;
   transition: all 0.5s ease-in-out;
   white-space: pre-line; 
+  box-sizing: border-box;
 
 }
 
@@ -106,13 +107,14 @@ img {
   font-family: 'Segoe UI', sans-serif;
   font-size: 16px;
   padding: 15px;
-  margin: 30px 10px 30px 0; /* top, right 10px, bottom 30px, left 0 */
+  margin: 30px 10px 60px 0; 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   line-height: 1.5;
   transition: all 0.5s ease-in-out;
   white-space: pre-line;
-  float: right; /* Align this box to the right */
-  clear: both; }
+  float: right; 
+  clear: both; 
+}
 
 #reviewBox3 {
   width: 994px;
@@ -124,7 +126,7 @@ img {
   font-family: 'Segoe UI', sans-serif;
   font-size: 16px;
   padding: 15px;
-  margin: 30px 0 30px 10px; /* top 30px, right 0, bottom 30px, left 10px */
+  margin: 30px 0 30px 10px; 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   line-height: 1.5;
   transition: all 0.5s ease-in-out;
@@ -133,3 +135,28 @@ img {
   clear: both; 
 }
 
+.review-wrapper {
+  display: flex;
+  align-items: center; /* align label and box at the top */
+  margin-bottom: 30px;
+}
+
+.label-text {
+  font-family: Arial, sans-serif;
+  color: #f0e9d2;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;      /* space from box */
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  width: 120px;
+  height: 490px;           /* same height as review box */
+  
+  display: flex;           /* make it flex container */
+  justify-content: center; /* center horizontally */
+  align-items: center;     /* center vertically */
+
+  text-align: center;      /* center text inside */
+  box-sizing: border-box;
+}
