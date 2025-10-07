@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),
     path('feed/', include('feed.urls')),
+    path('create_account/', include('create_account.urls')),
 
     path('search/', views.search_game_view, name = 'search-game'),
     path('review/new/<int:game_id>/', views.create_review_view, name = 'create-review')
