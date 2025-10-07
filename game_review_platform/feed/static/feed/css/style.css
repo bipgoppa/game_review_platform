@@ -4,29 +4,19 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly; /* or space-around, or space-evenly */
-  background-color: transparent;
-  align-items: center;
-  padding: 15px 30px; /* horizontal padding to add space at edges */
-  margin-top: -15px; 
-  
+header {
+  margin: 0;  
+  padding: 10px 0; 
 }
-.nav-links {
-    display: flex;
-    align-items: center; /* Vertically aligns the links themselves */
-    gap: 30px; /* Sets the spacing between "Feed", "My Profile", etc. */
-}
+
 .top-rectangle {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 110px; /* same as navbar height */
-  background-color: #555; /* pick any color */
-  z-index: -1; /* behind navbar */
+  height: 110px; 
+  background-color: #555;
+  z-index: -1; 
 }
 
 html, body {
@@ -35,20 +25,139 @@ html, body {
   
 }
 
-header {
-  margin: 0;  /* Remove margin */
-  padding: 10px 0; /* Optional padding for spacing */
-}
-
 img, div, nav, section {
   max-width: 100%;
   box-sizing: border-box;
 }
 
-.horizontal-scroll-container {
-    display: flex; /* Lays out children (the cards) in a row */
-    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
-    gap: 20px; /* Sets the space between each card */
-    padding-bottom: 15px; /* Adds space below the scrollbar */
-    
+img {
+  z-index: 2;
+}
+
+.navbar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly; 
+  background-color: #555555;
+  padding: 15px 30px; 
+  margin-top: 0px; 
+  z-index: 0;
+}
+
+.nav-item {
+  color: rgb(174, 174, 174);
+  text-decoration: none;
+  outline-offset: 2px;
+  transition: color 0.3s ease;
+}
+
+.nav-item:link,
+.nav-item:visited {
+  color: #333d3c;
+}
+
+.nav-item:hover {
+  color: rgb(0, 255, 0);
+  text-decoration: underline;
+}
+
+.nav-item:active {
+  color: rgb(255, 255, 0);
+}
+
+.nav-item:focus {
+  outline: 2px solid #0f0;
+  outline-offset: 2px;
+}
+
+.nav-section {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #444; 
+}
+
+#reviewBox {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 0 30px 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line; 
+  box-sizing: border-box;
+
+}
+
+#reviewBox2 {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 10px 60px 0; 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line;
+  float: right; 
+  clear: both; 
+}
+
+#reviewBox3 {
+  width: 994px;
+  min-height: 490px;
+  border: 2px solid #0080ff;
+  border-radius: 50px;
+  background-color: #333d3c;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  padding: 15px;
+  margin: 30px 0 30px 10px; 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  line-height: 1.5;
+  transition: all 0.5s ease-in-out;
+  white-space: pre-line;
+  min-height: 490px;
+  clear: both; 
+}
+
+.review-wrapper {
+  display: flex;
+  align-items: center; /* align label and box at the top */
+  margin-bottom: 30px;
+}
+
+.label-text {
+  font-family: Arial, sans-serif;
+  color: #f0e9d2;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 20px;      /* space from box */
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  width: 120px;
+  height: 490px;           /* same height as review box */
+  
+  display: flex;           /* make it flex container */
+  justify-content: center; /* center horizontally */
+  align-items: center;     /* center vertically */
+
+  text-align: center;      /* center text inside */
+  box-sizing: border-box;
 }
