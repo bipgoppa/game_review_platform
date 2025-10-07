@@ -1,0 +1,134 @@
+{% comment %} Assumes you have {% load static %} at the top of your template {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+/* static/css/form-styles.css */
+
+/* General Body & Container Styles (from your example) */
+body {
+    background-color: #333d3c;
+    color: #f0e9d2;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+h1 {
+    color: #ffffff;
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+/* Game Cover Image */
+.game-cover {
+    display: block;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Review Form Specific Styles */
+.review-form {
+    max-width: 650px;
+    margin: 0 auto;
+    background-color: #4a5453;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for each form field group (the <p> tag from form.as_p) */
+.review-form p {
+    margin-bottom: 20px;
+}
+
+.review-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* General styles for all inputs and textareas */
+.review-form input[type="text"],
+.review-form input[type="number"],
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: #f0e9d2;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.review-form input:focus,
+.review-form textarea:focus {
+    outline: none;
+    border-color: #6a9c89;
+    box-shadow: 0 0 5px #6a9c89;
+}
+
+/* Submit Button Styles */
+.review-form button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0e9d2;
+    color: #333d3c;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.review-form button:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review for: {{ game.name }}</title>
+    
+    {% comment %} Link to your new CSS file {% endcomment %}
+</head>
+<body>
+    <div class="container">
+        {% if game %}
+            <h1>Write a Review for: {{ game.name }}</h1>
+            {% if game.cover %}
+                
+                {% comment %} Added a class to the image {% endcomment %}
+                <img class="game-cover" src="{{ game.cover.url_big }}" alt="Cover for {{ game.name }}">
+            {% endif %}
+        {% endif %}
+
+        {% comment %} Added a class to the form {% endcomment %}
+        <form method="post" class="review-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+</body>
+</html>

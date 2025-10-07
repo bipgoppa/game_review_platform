@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+   <style>
+    /* General Body Styles */
+    body {
+        background-color: #333d3c;
+        color: #f0e9d2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Main container for centering content */
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    /* Header Styles */
+    h1, h2 {
+        color: #ffffff;
+        border-bottom: 2px solid #555;
+        padding-bottom: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+    }
+
+    /* Search Form Styles */
+    .search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    /* ADD THESE TWO LINES TO CENTER THE FORM ITSELF */
+    max-width: 450px; /* Give the form a maximum size */
+    margin: 20px auto; /* Center it horizontally with auto margins */
+    }
+
+    .search-form input[type="text"] {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #555;
+        border-radius: 5px;
+        background-color: #444;
+        color: #f0e9d2;
+        width: 300px;
+    }
+
+    .search-form button {
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0e9d2;
+        color: #333d3c;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #555;
+        margin: 30px 0;
+    }
+
+    /* Results List Styles -- CHANGED */
+    .results-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        /* Made the columns slightly narrower */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    /* Individual Result Item (Card) */
+    .result-item {
+        background-color: #4a5453;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .result-item:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Result Item Image -- CHANGED */
+    .result-item img {
+        width: 100%;
+        /* Increased height to make the card taller */
+        height: 300px;
+        /* Changed back to 'cover' to fill the new vertical space */
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .game-name {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-bottom: 15px;
+        display: block; /* Ensures it takes its own line */
+    }
+    
+    .result-item a {
+        display: inline-block;
+        text-decoration: none;
+        background-color: #6a9c89;
+        color: #ffffff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+    .result-item a:hover {
+        background-color: #83bca9;
+    }
+
+    .no-results {
+        background-color: #4a5453;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search for a Game to Review</h1>
+
+        <!-- This represents the included search form -->
+        {%include 'reviews/search_results.html'%}
+
+        <hr>
+
+        <!-- Example with results -->
+        {% if query %}
+            <h2>Results for "{{ query }}"</h2>
+            
+            {% if results %}
+                <ul class="results-list">
+                    {% for game in results %}
+                        <li class="result-item">
+                            {% if game.cover.url %}
+                                <img src="{{ game.cover.url }}" alt="Cover for {{ game.name }}">
+                            {% else %}
+                                <img src="https://placehold.co/600x400/333d3c/f0e9d2?text=No+Image" alt="No image available">
+                            {% endif %}
+                            
+                            <span class="game-name">{{ game.name }}</span>
+                            
+                            <a href="/review/new/{{ game.id }}/">Write a review</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-results">No games found matching your search.</p>
+            {% endif %}
+        {% endif %}
+
+      
+
+</body>
+</html>
