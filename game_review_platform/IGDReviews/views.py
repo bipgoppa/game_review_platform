@@ -65,7 +65,7 @@ def create_review_view(request, game_id):
             #saves a copy of the review to our database
             new_review.save()
             #spits you out at home
-            return redirect('/home')
+            return redirect('/feed')
     else:
         #if the user is not submitting a form, display a blank form
         review_form = ReviewForm()

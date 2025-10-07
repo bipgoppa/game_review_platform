@@ -16,7 +16,7 @@
 <a href="/feed/" class="nav-item">Feed</a>
 <a href="/My-Profile/" class="nav-item">My Profile</a>
 <a href="/Friends/" class="nav-item">Friends</a>
-<a href="/Search/" class="nav-item">Search</a>
+{%include 'reviews/search_results.html'%}
 </nav>
 
 <div class="top-rectangle"></div>
@@ -28,9 +28,11 @@
     <div id="reviewBox" contenteditable="true">
 </div>
     <div class="label-text">Your Feed</div>
-  
-    <!-- review content -->
-  
+     <div class="horizontal-scroll-container">
+    {% for x in myReviews %}
+        {% include "reviews/review_card.html" with review=x %}
+    {% endfor %}
+</div>
 
 </div>
 <div id="reviewBox2"></div>
