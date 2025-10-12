@@ -7,7 +7,7 @@ from IGDReviews.models import Review
 # Create your views here.
 def home(request):
     search_form = GameSearchForm()
-    myReviews = Review.objects.all().order_by('-created_at').values()
+    myReviews = Review.objects.select_related('user').order_by('-created_at')
     template = loader.get_template('feed/home.html')
     context = {'myReviews': myReviews, 'form': search_form,}
     return HttpResponse(template.render(context, request))

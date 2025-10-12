@@ -28,7 +28,11 @@
     <div id="reviewBox" contenteditable="true">
 </div>
     <div class="label-text">Your Feed</div>
-     <div class="horizontal-scroll-container">
+          <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 15px; /* Adds space below the scrollbar */
+    ">
     {% for x in myReviews %}
         {% include "reviews/review_card.html" with review=x %}
     {% endfor %}
