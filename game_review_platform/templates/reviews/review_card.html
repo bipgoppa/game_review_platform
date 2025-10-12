@@ -22,6 +22,12 @@
         border-radius: 4px;
         flex-shrink: 0; 
     }
+        .reviewer-info {
+        display: flex;
+        flex-direction: column; /* Stacks the username above the timestamp */
+        align-items: flex-end; /* Aligns both to the right */
+        margin: 0; 
+    }
     .review-content {
         display: flex;
         flex-direction: column;
@@ -88,7 +94,10 @@
 
          <div class="review-footer">
             <p class="review-stars">⭐ {{ review.stars }} / 5</p>
-            <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>
+           <div class="reviewer-info">
+                <p>Reviewed by: <strong>{{ review.user.username }}</strong></p> 
+                <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>
+            </div>
         </div>
     </div>
 </div>
