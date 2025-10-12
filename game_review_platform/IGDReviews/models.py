@@ -11,3 +11,4 @@ class Review(models.Model):
     body = models.TextField()
     stars = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews') 

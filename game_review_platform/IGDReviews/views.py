@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import GameSearchForm, ReviewForm
-from .models import Review
+from django.contrib.auth.decorators import login_required
 from .igdb_api import search_igdb_games, get_igdb_game_details
 
 # Create your views here.
@@ -36,7 +36,7 @@ def search_game_view(request):
     
     #shows the result HTML page, given the specific context we pass in
     return render(request, 'reviews/search_results_page.html', context)
-    
+@login_required
 def create_review_view(request, game_id):
     #finds a game given the game ID
     game_details = get_igdb_game_details(game_id)
@@ -57,6 +57,7 @@ def create_review_view(request, game_id):
             #start storing information about the game
             new_review = review_form.save(commit = False)
             new_review.game_id = game_id
+            new_review.user = request.user
             new_review.game = game_details.get('name')
             cover_data = game_details.get('cover', {})
             #verify we are storing the alrge version of our cover art

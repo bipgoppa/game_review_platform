@@ -42,6 +42,8 @@ IGDB_ACCESS_TOKEN = os.environ.get('IGDB_ACCESS_TOKEN')
 
 # Application definition
 
+LOGIN_URL = '/login/'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
