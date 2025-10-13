@@ -1,4 +1,4 @@
-{% comment %} Assumes you have {% load static %} at the top of your template {% endcomment %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,25 +30,48 @@ h1 {
     font-size: 2.5em;
     margin-bottom: 30px;
 }
-
+.content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap; 
+    gap: 40px; 
+}
 /* Game Cover Image */
 .game-cover {
     display: block;
-    max-width: 300px;
+    max-width: 100%;
     height: auto;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 20px; 
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-
+.game-summary {
+    font-size: 0.9em;
+    line-height: 1.6;
+    text-align: left;
+    color: #f0e9d2;
+}
 /* Review Form Specific Styles */
 .review-form {
-    max-width: 650px;
-    margin: 0 auto;
+    flex: 2; 
+    min-width: 350px;
     background-color: #4a5453;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.game-info {
+    flex: 1.5; 
+    background-color: #4a5453;
+    text-align: center;
+    padding: 30px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky; 
+    top: 20px;
+    max-height: calc(100vh - 165px);
 }
 
 /* Style for each form field group (the <p> tag from form.as_p) */
@@ -72,6 +95,7 @@ h1 {
     font-size: 1em;
     border: 1px solid #555;
     border-radius: 5px;
+    resize: none;
     background-color: #444;
     color: #f0e9d2;
     box-sizing: border-box; /* Ensures padding doesn't affect width */
@@ -105,30 +129,28 @@ h1 {
     transform: translateY(-2px);
 }
 </style>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write a Review for: {{ game.name }}</title>
-    
-    {% comment %} Link to your new CSS file {% endcomment %}
-</head>
 <body>
     <div class="container">
-        {% if game %}
-            <h1>Write a Review for: {{ game.name }}</h1>
-            {% if game.cover %}
-                
-                {% comment %} Added a class to the image {% endcomment %}
-                <img class="game-cover" src="{{ game.cover.url_big }}" alt="Cover for {{ game.name }}">
-            {% endif %}
-        {% endif %}
+        <h1>Write a Review for: {{ game.name }}</h1>
 
-        {% comment %} Added a class to the form {% endcomment %}
-        <form method="post" class="review-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit Review</button>
-        </form>
+        <div class="content-wrapper">
+
+            <form method="post" class="review-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit Review</button>
+            </form>
+
+            {% if game %}
+            <div class="game-info">
+                {% if game.cover %}
+                    <img class="game-cover" src="{{ game.cover.url_big }}" alt="Cover for {{ game.name }}">
+                {% endif %}
+                <p class="game-summary">{{ game.summary }}</p>
+            </div>
+            {% endif %}
+
+        </div>
     </div>
 </body>
 </html>

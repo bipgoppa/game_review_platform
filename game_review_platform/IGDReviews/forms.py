@@ -13,4 +13,5 @@ class ReviewForm(forms.ModelForm):
 
         widgets = {'body': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Write your review here'}),
                    'stars': forms.NumberInput(attrs={'min' : 1, 'max':  5}),
+                   'playtime': forms.NumberInput(attrs={'step': '0.50', 'min': '0'})
                 }
