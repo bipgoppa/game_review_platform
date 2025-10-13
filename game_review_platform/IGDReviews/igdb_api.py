@@ -6,11 +6,11 @@ def get_igdb_access_token():
     url = "https://id.twitch.tv/oauth2/token"
 
     #formats our ID, and SECRET into a JSON object to pass in the post request
-    params = {'client_id' : settings.IGDB_CLIENT_ID,
+    data = {'client_id' : settings.IGDB_CLIENT_ID,
               'client_secret' : settings.IGDB_CLIENT_SECRET,
               'grant_type': 'client_credentials'}
     
-    response = requests.post(url, params=params)
+    response = requests.post(url, data=data)
 
     #waits to verify that the post is successful for error handling
     response.raise_for_status()
