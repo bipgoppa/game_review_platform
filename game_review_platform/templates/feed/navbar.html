@@ -1,0 +1,14 @@
+{% load static %}
+<nav class="navbar">
+    <a href="{% url 'feed' %}" class="nav-logo-link">
+        <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="nav-logo">
+    </a>
+    <div class="nav-center">
+        <a href="{% url 'feed' %}" class="nav-item">Feed</a>
+        <a href="{% url 'profile' %}" class="nav-item">My Profile</a>
+        <a href="{% url 'friends_page' %}" class="nav-item">Friends</a>
+    </div>
+    <div class="nav-right">
+        {% include 'reviews/search_results.html' %}
+    </div>
+</nav>

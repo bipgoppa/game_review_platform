@@ -9,19 +9,7 @@
 
 <body>
 
-<nav class="navbar">
-    <a href="/feed/" class="nav-logo-link">
-        <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="nav-logo">
-    </a>
-    <div class="nav-center">
-        <a href="/feed/" class="nav-item">Feed</a>
-        <a href="/My-Profile/" class="nav-item">My Profile</a>
-        <a href="/Friends/" class="nav-item">Friends</a>
-    </div>
-    <div class="nav-right">
-        {%include 'reviews/search_results.html'%}
-    </div>
-</nav>
+{% include 'feed/navbar.html' %}
 <section class="hero-section">
     <div class="hero-content">
         <h1 class="hero-title">
@@ -37,10 +25,12 @@
     <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
     overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
     gap: 20px; /* Sets the space between each card */
-    padding-bottom: 15px; /* Adds space below the scrollbar */
+    padding-bottom: -10px; /* Reduced space below the scrollbar */
     ">
         {% for x in myReviews %}
             {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">Search for a game and write your first review!</p>
         {% endfor %}
     </div>
 </div>
@@ -50,10 +40,27 @@
     <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
     overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
     gap: 20px; /* Sets the space between each card */
-    padding-bottom: 15px; /* Adds space below the scrollbar */
+    padding-bottom: 0px; /* Reduced space below the scrollbar */
     ">
         {% for x in friend_reviews %}
             {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">Add friends to see their reviews here!</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="review-box">
+    <div class="label-text">Highest Rated Reviews</div>
+    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 0px; /* Reduced space below the scrollbar */
+    ">
+        {% for x in highest_rated_reviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">No reviews have been rated yet.</p>
         {% endfor %}
     </div>
 </div>

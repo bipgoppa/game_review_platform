@@ -2,93 +2,107 @@
     /* This CSS can be moved to your main stylesheet */
     .review-card {
         display: flex;
-        gap: 20px;
         padding: 15px;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        background-color: #3b756e;  
-        flex-shrink: 0; 
-        width: 550px; 
+        background-color: #3b756e;
+        flex-shrink: 0;
+        width: 540px; /* 10% less wide */
         transform: scale(0.75);
-        margin-right: -137.5px;
-        transform-origin: top left; 
+        margin-top: 55;
+        margin-right: -135px; /* Adjusted margin for new width */
+        margin-bottom: -55px; /* Pull up the space created by scaling */
+        height: 300px; /* 20% taller */
+        transform-origin: top left;
+        position: relative; /* Needed for positioning the delete button */
     }
-    .image-and-rating {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    flex-shrink: 0;
-}
 
     .review-cover-art {
-        width: 150px;
-        height: auto; /* This lets the height adjust to the image's aspect ratio */
-        object-fit: contain; /* This ensures the entire image fits */
+        width: 180px;
+        height: 100%; /* Image will fill the card's height */
+        object-fit: cover; /* Ensures the image fills the space, may crop */
         border-radius: 4px;
-        margin-bottom: 5px;
         flex-shrink: 0; 
     }
-        .reviewer-info {
-        display: flex;
-        flex-direction: column; /* Stacks the username above the timestamp */
-        align-items: flex-end; /* Aligns both to the right */
-        margin: 0; 
-    }
-    .review-content {
+
+    .main-content {
         display: flex;
         flex-direction: column;
         flex-grow: 1; /* Allows this section to take up remaining space */
+        padding-left: 20px; /* Space between image and content */
+        overflow: hidden; /* Prevent content from spilling out */
     }
+
     .review-header {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        border-bottom: 1px solid #00f4d8;
+        border-bottom: 1px solid #00f4d8; /* Added line with playtime color */
         padding-bottom: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Increased space below the header */
+        flex-shrink: 0;
     }
+
     .review-header h2 {
         margin: 0;
         font-size: 1.4em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+
     .review-playtime {
         font-size: 0.9em;
         color: #00f4d8;
+        flex-shrink: 0;
+        padding-left: 10px;
     }
+
     .review-title {
         margin: 0 0 10px 0;
         font-size: 1.2em;
         font-weight: bold;
+        flex-shrink: 0;
     }
+
     .review-body {
         flex-grow: 1; /* Pushes the date to the bottom */
         margin: 0;
+        overflow-y: auto; /* Add a scrollbar if content overflows */
+        padding-right: 5px; /* Prevent scrollbar from overlapping text */
         line-height: 1.6;
+        margin-bottom: 10px;
     }
-    .review-timestamp {
-        font-size: 0.8em;
-        color: #00f4d8;
-        margin: 0px;
-    }
+
     .review-footer {
-    display: flex;
-    justify-content: flex-end; /* This is the key change */
-    align-items: center;
-    margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; /* Align both children to the bottom */
+        flex-shrink: 0;
+        padding-top: 10px;
     }
+
+    .rating-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .review-stars {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #00f4d8; /* Match your body color or choose another */
-    margin: 0; /* Remove default paragraph margin */
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #00f4d8;
+        margin: 0;
     }
+
     .vote-section {
         display: flex;
         align-items: center;
-        margin-top: 10px; /* Add some space above the vote section */
+        margin-top: 5px;
         gap: 10px;
     }
+
     .vote-button {
         text-decoration: none;
         color: #f0e9d2;
@@ -96,28 +110,112 @@
         font-weight: bold;
         transition: transform 0.1s ease;
     }
+
     .vote-button:hover {
         transform: scale(1.2);
     }
+
     .review-rating {
         font-size: 1.1em;
         font-weight: bold;
     }
-    
+
+    .reviewer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin: 0;
+    }
+
+    .review-timestamp {
+        font-size: 0.8em;
+        color: #00f4d8;
+        margin: 0px;
+    }
+
+    .review-menu-container {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        z-index: 10;
+    }
+
+    .review-menu summary {
+        list-style: none; /* Hide the default triangle */
+        cursor: pointer;
+        font-size: 1.5em;
+        font-weight: bold;
+        padding: 0 5px;
+        border-radius: 4px;
+        line-height: 1;
+    }
+
+    .review-menu summary::-webkit-details-marker {
+        display: none; /* Hide the default triangle in Chrome/Safari */
+    }
+
+    .review-menu-dropdown {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: #4a5453;
+        border: 1px solid #555;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        padding: 5px;
+        z-index: 20;
+        min-width: 110px;
+    }
+
+    .review-menu-dropdown form {
+        margin: 0; /* Remove default form margin */
+        width: 100%;
+    }
+
+    .review-menu-dropdown a,
+    .review-menu-dropdown button {
+        display: block;
+        width: 100%;
+        padding: 8px 10px;
+        text-align: left;
+        background: none;
+        border: none;
+        color: #f0e9d2;
+        text-decoration: none;
+        font-size: 1em;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .review-menu-dropdown a:hover,
+    .review-menu-dropdown button:hover {
+        background-color: #6a9c89;
+        border-radius: 3px;
+    }
+
+    .review-menu-dropdown button {
+        color: #ff6b6b; /* Reddish color for delete */
+    }
 </style>
 
 <div class="review-card">
-    <div class="image-and-rating">
+    {% if review.user == request.user %}
+    <div class="review-menu-container">
+        <details class="review-menu">
+            <summary>⋮</summary>
+            <div class="review-menu-dropdown">
+                <a href="{% url 'edit_review' review.id %}">Edit</a>
+                <form action="{% url 'delete_review' review.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this review?');">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </details>
+    </div>
+    {% endif %}
     <img src="{{ review.cover_art}}" class="review-cover-art">
-    <p class="review-stars">⭐ {{ review.stars }} / 5</p>
-    <div class="vote-section">
-        <a href="{% url 'vote_review' review.id 'up' %}" class="vote-button">▲</a>
-        <span class="review-rating">{{ review.rating }}</span>
-        <a href="{% url 'vote_review' review.id 'down' %}" class="vote-button">▼</a>
-    </div>
-    </div>
-    <div class="review-content">
-        <div class="review-header">
+    <div class="main-content">
+        <div class="review-header" {% if review.user == request.user %}style="padding-right: 40px;"{% endif %}>
             <h2>{{ review.game }}</h2>
             <span class="review-playtime">Play time: {{ review.playtime }} hrs</span>
         </div>
@@ -126,7 +224,15 @@
 
         <p class="review-body">{{ review.body }}</p>
 
-         <div class="review-footer">
+        <div class="review-footer">
+            <div class="rating-wrapper">
+                <p class="review-stars">⭐ {{ review.stars }} / 5</p>
+                <div class="vote-section">
+                    <a href="{% url 'vote_review' review.id 'up' %}" class="vote-button">▲</a>
+                    <span class="review-rating">{{ review.rating }}</span>
+                    <a href="{% url 'vote_review' review.id 'down' %}" class="vote-button">▼</a>
+                </div>
+            </div>
            <div class="reviewer-info">
                 <p>Reviewed by: <strong>{{ review.user.username }}</strong></p> 
                 <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>

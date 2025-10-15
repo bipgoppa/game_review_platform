@@ -19,17 +19,21 @@ from django.urls import path, include
 from IGDReviews import views
 from django.conf import settings
 from django.conf.urls.static import static
+from profiles import views as profile_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),
-    path('feed/', include('feed.urls')),
+    path('feed/', include('feed.urls'), name='feed-home'),
     path('create_account/', include('create_account.urls')),
 
     path('search/', views.search_game_view, name = 'search-game'),
     path('review/new/<int:game_id>/', views.create_review_view, name = 'create-review'),
+    path('review/edit/<int:review_id>/', views.edit_review, name='edit_review'),
+    path('review/delete/<int:review_id>/', views.delete_review, name='delete_review'),
     path('profile/', include('profiles.urls')),
+    path('Friends/', profile_views.friends_view, name='friends_page'),
     path('', include('IGDReviews.urls')), # Include the URLs for voting
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

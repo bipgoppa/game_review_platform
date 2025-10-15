@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+    <title>{{ user.username }}'s Profile</title>
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #333d3c;
+            border-radius: 8px;
+            color: #f0e9d2;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .logout-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #f0e9d2;
+            background-color: #c94c4c; /* A distinct reddish color for logout */
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .logout-button:hover {
+            background-color: #e06c6c;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    {% include 'feed/navbar.html' %}
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>{{ user.username }}'s Profile</h1>
+        </div>
+        {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:20px;">
+        {% endif %}
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Bio:</strong> {{ user.profile.bio|default:"No bio set." }}</p>
+        
+        <div>
+            <a href="{% url 'edit_profile' %}" class="logout-button" style="background-color: #6a9c89;">Edit Account</a>
+            <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
