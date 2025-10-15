@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from IGDReviews.forms import GameSearchForm
 from IGDReviews.models import Review
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from profiles.models import Friendship
 
@@ -22,7 +23,7 @@ def get_accepted_friend_ids(user):
             friend_ids.add(friendship.from_user_id)
             
     return list(friend_ids)
-
+@login_required
 def home(request):
     current_user = request.user
     friend_ids = get_accepted_friend_ids(current_user)

@@ -129,7 +129,7 @@ img {
 .hero-section {
     background-color: #333d3c;
     /* A subtle, repeating Tetris-like pattern using an embedded SVG */
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232a3332' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a5453' fill-opacity='0.6'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     padding: 60px 20px;
     text-align: center;
     display: flex;
@@ -144,13 +144,6 @@ img {
     gap: 25px;
 }
 
-.hero-logo {
-    width: 100px; /* Adjust size as needed */
-    height: auto;
-    /* A subtle drop-shadow to lift the logo off the background */
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
-}
-
 .hero-title {
     font-size: 4.5em; /* Large, impactful text */
     color: #f0e9d2;
@@ -158,4 +151,15 @@ img {
     margin: 0;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Matching shadow for text */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A modern, clean font */
+    display: flex; /* Align logo and text */
+    align-items: center; /* Vertically center the logo with the text */
+}
+
+.hero-logo-inline {
+    /* Make the logo height match the text's line-height */
+    height: 1.265em; /* Increased by 15% from 1.1em */
+    width: auto;
+    margin-right: -9px; /* Small space between logo and text */
+    /* A subtle drop-shadow to lift the logo off the background */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }

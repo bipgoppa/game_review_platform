@@ -83,6 +83,26 @@
     color: #00f4d8; /* Match your body color or choose another */
     margin: 0; /* Remove default paragraph margin */
     }
+    .vote-section {
+        display: flex;
+        align-items: center;
+        margin-top: 10px; /* Add some space above the vote section */
+        gap: 10px;
+    }
+    .vote-button {
+        text-decoration: none;
+        color: #f0e9d2;
+        font-size: 1.5em;
+        font-weight: bold;
+        transition: transform 0.1s ease;
+    }
+    .vote-button:hover {
+        transform: scale(1.2);
+    }
+    .review-rating {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
     
 </style>
 
@@ -90,6 +110,11 @@
     <div class="image-and-rating">
     <img src="{{ review.cover_art}}" class="review-cover-art">
     <p class="review-stars">⭐ {{ review.stars }} / 5</p>
+    <div class="vote-section">
+        <a href="{% url 'vote_review' review.id 'up' %}" class="vote-button">▲</a>
+        <span class="review-rating">{{ review.rating }}</span>
+        <a href="{% url 'vote_review' review.id 'down' %}" class="vote-button">▼</a>
+    </div>
     </div>
     <div class="review-content">
         <div class="review-header">

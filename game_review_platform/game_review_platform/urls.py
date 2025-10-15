@@ -30,6 +30,6 @@ urlpatterns = [
     path('search/', views.search_game_view, name = 'search-game'),
     path('review/new/<int:game_id>/', views.create_review_view, name = 'create-review'),
     path('profile/', include('profiles.urls')),
+    path('', include('IGDReviews.urls')), # Include the URLs for voting
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

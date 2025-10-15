@@ -15,7 +15,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('/feed/')
         else:
             return render(request, 'login/login.html')
 
@@ -26,7 +26,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('home')
+    return redirect('login')
 
 @login_required
 def home(request):
