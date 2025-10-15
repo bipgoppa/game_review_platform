@@ -9,16 +9,6 @@ header {
   padding: 10px 0; 
 }
 
-.top-rectangle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 110px; 
-  background-color: #555;
-  z-index: -1; 
-}
-
 html, body {
   margin: 0;
   padding: 0;
@@ -38,37 +28,56 @@ img {
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: space-evenly; 
+  justify-content: space-between; 
+  align-items: center;
   background-color: #555555;
   padding: 15px 30px; 
   margin-top: 0px; 
   z-index: 0;
 }
 
-.nav-item {
-  color: rgb(174, 174, 174);
-  text-decoration: none;
-  outline-offset: 2px;
-  transition: color 0.3s ease;
+.nav-logo-link {
+  display: flex;
+  align-items: center;
 }
 
-.nav-item:link,
-.nav-item:visited {
-  color: #333d3c;
+.nav-logo {
+  height: 50px; /* Control the size of the logo */
+  width: auto;
+}
+
+.nav-center {
+  display: flex;
+  gap: 100px; /* Increased space between nav buttons */
+}
+
+.nav-right {
+  display: flex;
+}
+
+/* New button styles for navigation items */
+.nav-item {
+  background-color: #f0e9d2; /* Light background to stand out */
+  color: #333d3c; /* Dark text for contrast */
+  padding: 10px 25px; /* Vertical and horizontal padding */
+  border-radius: 25px; /* Creates a pill shape */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  display: flex; /* Use flexbox for perfect centering */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
 }
 
 .nav-item:hover {
-  color: rgb(0, 255, 0);
-  text-decoration: underline;
+  background-color: #ffffff; /* Slightly lighter on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  color: #333d3c; /* Ensure text color remains dark */
 }
 
 .nav-item:active {
-  color: rgb(255, 255, 0);
-}
-
-.nav-item:focus {
-  outline: 2px solid #0f0;
-  outline-offset: 2px;
+  transform: translateY(0); /* Button returns to original position on click */
 }
 
 .nav-section {
@@ -78,86 +87,91 @@ img {
   align-items: center;
   border-right: 1px solid #444; 
 }
-
-#reviewBox {
-  width: 994px;
-  min-height: 490px;
+/* A single class for all review containers */
+.review-box {
+  display: flex;          /* Make the box a flex container */
+  flex-direction: column; /* Stack children (label and scroll container) vertically */
+  justify-content: flex-start; /* Aligns content to the top */
   border: 2px solid #0080ff;
   border-radius: 50px;
   background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 0 30px 10px;
+  padding: 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
   transition: all 0.5s ease-in-out;
-  white-space: pre-line; 
   box-sizing: border-box;
-
+  max-width: 1200px; /* Optional: constrain width */
+  margin: 15px auto; /* Center the review boxes on the page */
 }
 
-#reviewBox2 {
-  width: 994px;
-  min-height: 490px;
-  border: 2px solid #0080ff;
-  border-radius: 50px;
-  background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 10px 60px 0; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
-  transition: all 0.5s ease-in-out;
-  white-space: pre-line;
-  float: right; 
-  clear: both; 
-}
-
-#reviewBox3 {
-  width: 994px;
-  min-height: 490px;
-  border: 2px solid #0080ff;
-  border-radius: 50px;
-  background-color: #333d3c;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 16px;
-  padding: 15px;
-  margin: 30px 0 30px 10px; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  line-height: 1.5;
-  transition: all 0.5s ease-in-out;
-  white-space: pre-line;
-  min-height: 490px;
-  clear: both; 
-}
-
-.review-wrapper {
+/* Wrapper for a label and its corresponding review box */
+.review-section-wrapper {
   display: flex;
-  align-items: center; /* align label and box at the top */
-  margin-bottom: 30px;
+  align-items: flex-start; /* Align items to the top */
+  margin: 30px 20px; /* Margin around the entire section */
+  max-width: 1200px; /* Constrain width */ 
 }
 
 .label-text {
   font-family: Arial, sans-serif;
   color: #f0e9d2;
   font-weight: bold;
-  font-size: 20px;
-  margin-left: 20px;      /* space from box */
+  font-size: 1.8em; /* Slightly larger for prominence */
   white-space: nowrap;
   flex-shrink: 0;
+  text-align: left; /* Align text to the left */
+  padding: 0; /* Remove previous padding */
+  background-color: transparent; /* Remove background color */
+  border-radius: 0; /* Remove border-radius */
+  margin-bottom: 15px; /* Add space below the label */
+  border-bottom: 2px solid #00f4d8;
+  padding-bottom: 5px;
+}
 
-  width: 120px;
-  height: 490px;           /* same height as review box */
-  
-  display: flex;           /* make it flex container */
-  justify-content: center; /* center horizontally */
-  align-items: center;     /* center vertically */
+/* Hero Section Styles */
+.hero-section {
+    background-color: #333d3c;
+    /* A subtle, repeating Tetris-like pattern using an embedded SVG */
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a5453' fill-opacity='0.6'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    padding: 60px 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-  text-align: center;      /* center text inside */
-  box-sizing: border-box;
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.hero-title {
+    font-size: 4.5em; /* Large, impactful text */
+    color: #f0e9d2;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Matching shadow for text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A modern, clean font */
+    display: flex; /* Align logo and text */
+    align-items: center; /* Vertically center the logo with the text */
+}
+
+.hero-logo-inline {
+    /* Make the logo height match the text's line-height */
+    height: 1.265em; /* Increased by 15% from 1.1em */
+    width: auto;
+    margin-right: -9px; /* Small space between logo and text */
+    /* A subtle drop-shadow to lift the logo off the background */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Placeholder text for empty review sections */
+.empty-review-placeholder {
+    width: 100%;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.2em;
+    color: #a0a0a0;
+    font-style: italic;
 }
