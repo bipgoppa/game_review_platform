@@ -8,49 +8,52 @@
 
 
 <body>
-    <h1 style="text-align: center; color: #ffffff">Your Feed</h1>
-    <p></p>
-    <img src="{% static 'feed/images/logo.png' %}" z-index="" alt="Picture of our logo" width="80" style="position: absolute; top: 0px; left: 0px;">
-    
+
 <nav class="navbar">
-<a href="/feed/" class="nav-item">Feed</a>
-<a href="/My-Profile/" class="nav-item">My Profile</a>
-<a href="/Friends/" class="nav-item">Friends</a>
-{%include 'reviews/search_results.html'%}
+    <a href="/feed/" class="nav-logo-link">
+        <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="nav-logo">
+    </a>
+    <div class="nav-center">
+        <a href="/feed/" class="nav-item">Feed</a>
+        <a href="/My-Profile/" class="nav-item">My Profile</a>
+        <a href="/Friends/" class="nav-item">Friends</a>
+    </div>
+    <div class="nav-right">
+        {%include 'reviews/search_results.html'%}
+    </div>
 </nav>
+<section class="hero-section">
+    <div class="hero-content">
+        <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="hero-logo">
+        <h1 class="hero-title">PlayTested</h1>
+    </div>
+</section>
 
-<div class="top-rectangle"></div>
 
-
-
-
-<div class="review-wrapper">
-    <div id="reviewBox" contenteditable="false">
-        <div class="label-text">My Reviews</div>
-          <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+<div class="review-box">
+    <div class="label-text">My Reviews</div>
+    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
     overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
     gap: 20px; /* Sets the space between each card */
     padding-bottom: 15px; /* Adds space below the scrollbar */
     ">
-    {% for x in myReviews %}
-        {% include "reviews/review_card.html" with review=x %}
-    {% endfor %}
-</div>
-    
+        {% for x in myReviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% endfor %}
+    </div>
 </div>
 
-</div>
-<div id="reviewBox2">
+<div class="review-box">
     <div class="label-text">Friends Reviews</div>
     <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
     overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
     gap: 20px; /* Sets the space between each card */
     padding-bottom: 15px; /* Adds space below the scrollbar */
     ">
-    {% for x in friend_reviews %}
-        {% include "reviews/review_card.html" with review=x %}
-    {% endfor %}
-</div></div>
-<div id="reviewBox3"></div>
+        {% for x in friend_reviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% endfor %}
+    </div>
+</div>
 </body>
 </html>
