@@ -4,6 +4,20 @@
     <title>Login</title>
 </head>
 <body>
+
+{% if messages %}
+    <ul style='list-style: none; padding: 0; margin-bottom: 20px;'>
+        {% for message in messages%}
+            <li style='
+                {% if message.tags == "success" %}color: green; font-weight-bold;;
+                {% elif message.tags == "error" %}color: red;
+                {% endif %}
+            '>
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
     <h2>Login Page</h2>
     <form method="post">
         {% csrf_token %}
