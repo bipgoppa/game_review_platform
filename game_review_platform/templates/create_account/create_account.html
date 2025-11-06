@@ -1,29 +1,156 @@
+{% load static %}
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* page background */
+        body {
+            background-color: #333d3c;
+            color: #f0e9d2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* center everything */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        /* logo styling */
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+
+        /* form box styling */
+        form {
+            background-color: #444c4a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #f0e9d2;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #f0e9d2;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            background-color: #555;
+            color: #f0e9d2;
+            font-size: 1em;
+        }
+
+        input:focus {
+            outline: 2px solid #00f4d8;
+            background-color: #666;
+        }
+
+        button {
+            background-color: #f0e9d2;
+            color: #333d3c;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 25px;
+            font-size: 1em;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* message styling (errors/success) */
+        ul.messages {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        ul.messages li {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        ul.messages li.success {
+            background-color: #00b894;
+        }
+    </style>
 <html>
-    <head>
-        <title>Create Account</title>
-    </head>
-    <body>
-        <div class='form-container'>
-            <h2>Create Your Account</h2>
-            <form method='POST'>
-                {% csrf_token %}
-                {{ form.non_field_errors}}
-
-                <label for='{{ form.username.id_for_label }}'>Username:</label>
-                {{ form.username }}
-
-                <label for='{{ form.email.id_for_label }}'}>Email:</label>
-                {{ form.email }}
-
-                <label for='{{ form.password1.id_for_label }}'>Password:</label>
-                {{ form.password1 }}
-
-                <label for='{{ form.password2.id_for_label }}'>Confirm Password:</label>
-                {{ form.password2 }}
-
-                <button type='submit'>Register</button>
-            </form>
+<head>
+    <title>Create Account</title>
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="hero-logo-inline">
+                <span>layTested</span>
+            </h1>
         </div>
-    </body>
+    </section>
+
+    <div class='form-container'>
+        <h2>Create Your Account</h2>
+        <form method='POST'>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <label for='{{ form.username.id_for_label }}'>Username:</label>
+            {{ form.username }}
+
+            <label for='{{ form.email.id_for_label }}'>Email:</label>
+            {{ form.email }}
+
+            <label for='{{ form.password1.id_for_label }}'>Password:</label>
+            {{ form.password1 }}
+
+            <label for='{{ form.password2.id_for_label }}'>Confirm Password:</label>
+            {{ form.password2 }}
+
+            <button type='submit'>Register</button>
+        </form>
+    </div>
+</body>
 </html>
