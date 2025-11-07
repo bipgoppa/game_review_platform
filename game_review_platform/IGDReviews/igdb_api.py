@@ -43,7 +43,7 @@ def get_igdb_game_details(game_id):
                'Authorization' : f'Bearer {access_token}'
                }
     #given a specific game id, it returns one games name and cover
-    body = f'fields name, summary, cover.url; where id = {game_id};'
+    body = f'fields name, summary, cover.url, genres.name; where id = {game_id};'
 
     response = requests.post("https://api.igdb.com/v4/games", headers=headers, data= body)
 

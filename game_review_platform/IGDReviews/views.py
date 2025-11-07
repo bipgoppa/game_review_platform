@@ -65,6 +65,10 @@ def create_review_view(request, game_id):
             #verify we are storing the alrge version of our cover art
             if cover_data:
                 new_review.cover_art = cover_data.get('url','').replace('t_thumb', 't_cover_big')
+            if 'genres' in game_details:
+                genre_names = [genre['name'] for genre in game_details['genres']]
+                new_review.genres = ','.join(genre_names)
+
             #saves a copy of the review to our database
             new_review.save()
             #spits you out at home

@@ -13,6 +13,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField(default=0)
+    genres = models.CharField(max_length=200, blank=True, default='')
 
 class Vote(models.Model):
     UPVOTE = 1
