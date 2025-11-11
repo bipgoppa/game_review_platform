@@ -13,14 +13,18 @@ def user_login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/feed/')
-        else:
-            return render(request, 'login/login.html')
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login successful!")
+                return redirect('/feed/')
+            else:
+                messages.error(request, "Invalid username or password.")
+                return redirect('login')
 
     else:
         form = LoginForm()
+
     return render(request, 'login/login.html', {'form': form})
 
 
