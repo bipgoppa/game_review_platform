@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import GameSearchForm, ReviewForm
-from .models import Review
+from django.contrib.auth.decorators import login_required
 from .igdb_api import search_igdb_games, get_igdb_game_details
+from .models import Review, Vote
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -36,7 +38,7 @@ def search_game_view(request):
     
     #shows the result HTML page, given the specific context we pass in
     return render(request, 'reviews/search_results_page.html', context)
-    
+@login_required
 def create_review_view(request, game_id):
     #finds a game given the game ID
     game_details = get_igdb_game_details(game_id)
@@ -57,11 +59,16 @@ def create_review_view(request, game_id):
             #start storing information about the game
             new_review = review_form.save(commit = False)
             new_review.game_id = game_id
+            new_review.user = request.user
             new_review.game = game_details.get('name')
             cover_data = game_details.get('cover', {})
             #verify we are storing the alrge version of our cover art
             if cover_data:
                 new_review.cover_art = cover_data.get('url','').replace('t_thumb', 't_cover_big')
+            if 'genres' in game_details:
+                genre_names = [genre['name'] for genre in game_details['genres']]
+                new_review.genres = ','.join(genre_names)
+
             #saves a copy of the review to our database
             new_review.save()
             #spits you out at home
@@ -75,3 +82,66 @@ def create_review_view(request, game_id):
         'game': game_details,
     }
     return render(request, 'reviews/create_review.html', context)
+
+@login_required
+def vote_review(request, review_id, vote_type):
+    review = get_object_or_404(Review, id=review_id)
+    vote_value = Vote.UPVOTE if vote_type == 'up' else Vote.DOWNVOTE
+
+    # Check if a vote already exists
+    existing_vote = Vote.objects.filter(user=request.user, review=review).first()
+
+    if existing_vote:
+        # If the user is clicking the same button again, remove the vote
+        if existing_vote.vote_type == vote_value:
+            existing_vote.delete()
+        # If the user is changing their vote, update it
+        else:
+            existing_vote.vote_type = vote_value
+            existing_vote.save()
+    else:
+        # If no vote exists, create a new one
+        Vote.objects.create(user=request.user, review=review, vote_type=vote_value)
+
+    # Recalculate the review's total rating
+    # The .get('total', 0) or 0 handles the case where there are no votes
+    new_rating = Vote.objects.filter(review=review).aggregate(total=Sum('vote_type')).get('total') or 0
+    review.rating = new_rating
+    review.save()
+
+    # Redirect back to the feed
+    return redirect('/feed/')
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+
+    # Ensure the user is the owner of the review
+    if review.user != request.user:
+        # You can redirect or show a forbidden error
+        return redirect('feed')
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('feed')
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        'form': form,
+        'review': review
+    }
+    return render(request, 'reviews/edit_review.html', context)
+
+@login_required
+def delete_review(request, review_id):
+    # Get the review object, or return a 404 if not found
+    review = get_object_or_404(Review, id=review_id)
+
+    # Check if the logged-in user is the owner of the review
+    if review.user == request.user:
+        review.delete()
+        # Optionally, you can add a success message here
+    return redirect('feed')

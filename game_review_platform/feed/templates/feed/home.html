@@ -8,34 +8,90 @@
 
 
 <body>
-    <h1 style="text-align: center; color: #ffffff">Your Feed</h1>
-    <p></p>
-    <img src="{% static 'feed/images/logo.png' %}" z-index="" alt="Picture of our logo" width="80" style="position: absolute; top: 0px; left: 0px;">
-    
-<nav class="navbar">
-<a href="/feed/" class="nav-item">Feed</a>
-<a href="/My-Profile/" class="nav-item">My Profile</a>
-<a href="/Friends/" class="nav-item">Friends</a>
-{%include 'reviews/search_results.html'%}
-</nav>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-<div class="top-rectangle"></div>
+{% include 'feed/navbar.html' %}
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="hero-logo-inline">
+            <span>layTested</span>
+        </h1>
+    </div>
+</section>
+<div class="genre-filter" style="margin: 20px auto; padding: 20px; background-color: #2d3748; border-radius: 8px; max-width: 1200px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+    <form method="get" action="{% url 'home' %}" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+        <label for="genre" style="font-weight: bold; font-size: 16px; color: #e2e8f0;">Filter by Genre:</label>
+        <select name="genre" id="genre" onchange="this.form.submit()" style="padding: 10px 15px; border-radius: 5px; border: 2px solid #4a5568; background-color: #1a202c; color: #e2e8f0; font-size: 14px; cursor: pointer; min-width: 200px;">
+            <option value="">All Genres</option>
+            {% for genre in all_genres %}
+                <option value="{{ genre }}" {% if selected_genre == genre %}selected{% endif %}>
+                    {{ genre }}
+                </option>
+            {% endfor %}
+        </select>
 
-
-
-
-<div class="review-wrapper">
-    <div id="reviewBox" contenteditable="true">
+        <!-- Clear filter button -->
+        {% if selected_genre %}
+            <a href="{% url 'home' %}" style="padding: 10px 20px; background-color: #e53e3e; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.3s;">
+                Clear Filter
+            </a>
+        {% endif %}
+    </form>
 </div>
-    <div class="label-text">Your Feed</div>
-     <div class="horizontal-scroll-container">
-    {% for x in myReviews %}
-        {% include "reviews/review_card.html" with review=x %}
-    {% endfor %}
+
+
+<div class="review-box">
+    <div class="label-text">My Reviews</div>
+    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: -10px; /* Reduced space below the scrollbar */
+    ">
+        {% for x in myReviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">Search for a game and write your first review!</p>
+        {% endfor %}
+    </div>
 </div>
 
+<div class="review-box">
+    <div class="label-text">Friends Reviews</div>
+    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 0px; /* Reduced space below the scrollbar */
+    ">
+        {% for x in friend_reviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">Add friends to see their reviews here!</p>
+        {% endfor %}
+    </div>
 </div>
-<div id="reviewBox2"></div>
-<div id="reviewBox3"></div>
+
+
+
+<div class="review-box">
+    <div class="label-text">Highest Rated Reviews</div>
+    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
+    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
+    gap: 20px; /* Sets the space between each card */
+    padding-bottom: 0px; /* Reduced space below the scrollbar */
+    ">
+        {% for x in highest_rated_reviews %}
+            {% include "reviews/review_card.html" with review=x %}
+        {% empty %}
+            <p class="empty-review-placeholder">No reviews have been rated yet.</p>
+        {% endfor %}
+    </div>
+</div>
 </body>
 </html>

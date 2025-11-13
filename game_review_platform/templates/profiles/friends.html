@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+    <title>Friends</title>
+    <style>
+        .friends-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333d3c;
+            border-radius: 8px;
+            color: #f0e9d2;
+        }
+        .friends-section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.5em;
+            border-bottom: 2px solid #f0e9d2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .request-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #4a5453;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .friend-item {
+            padding: 10px;
+            background-color: #4a5453;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-send { background-color: #6a9c89; color: white; }
+        .send-request-form p { margin-bottom: 15px; }
+        .send-request-form label { display: block; margin-bottom: 5px; }
+        .send-request-form input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #555; background-color: #444; color: #f0e9d2; box-sizing: border-box; }
+
+        .btn-accept { background-color: #5cb85c; color: white; }
+    </style>
+</head>
+<body>
+    {% include 'feed/navbar.html' %}
+
+    <div class="friends-container">
+        <div class="friends-section">
+            <h2 class="section-title">Incoming Friend Requests</h2>
+            {% for request in incoming_requests %}
+                <div class="request-item">
+                    <span>{{ request.from_user.username }} wants to be your friend.</span>
+                    <form method="post" action="{% url 'friends_page' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="friendship_id" value="{{ request.id }}">
+                        <button type="submit" name="accept_request" class="btn btn-accept">Accept</button>
+                    </form>
+                </div>
+            {% empty %}
+                <p>No new friend requests.</p>
+            {% endfor %}
+        </div>
+
+        <div class="friends-section">
+            <h2 class="section-title">Send a Friend Request</h2>
+            <form method="post" action="{% url 'friends_page' %}" class="send-request-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name="send_request" class="btn btn-send">Send Request</button>
+            </form>
+        </div>
+
+        <div class="friends-section">
+            <h2 class="section-title">Your Friends</h2>
+            {% for friend in friends_list %}
+                <div class="friend-item">
+                    {{ friend.username }}
+                </div>
+            {% empty %}
+                <p>You haven't added any friends yet. Send a request!</p>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>

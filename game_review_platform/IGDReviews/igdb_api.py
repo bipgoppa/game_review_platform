@@ -6,11 +6,11 @@ def get_igdb_access_token():
     url = "https://id.twitch.tv/oauth2/token"
 
     #formats our ID, and SECRET into a JSON object to pass in the post request
-    params = {'client_id' : settings.IGDB_CLIENT_ID,
+    data = {'client_id' : settings.IGDB_CLIENT_ID,
               'client_secret' : settings.IGDB_CLIENT_SECRET,
               'grant_type': 'client_credentials'}
     
-    response = requests.post(url, params=params)
+    response = requests.post(url, data=data)
 
     #waits to verify that the post is successful for error handling
     response.raise_for_status()
@@ -43,7 +43,7 @@ def get_igdb_game_details(game_id):
                'Authorization' : f'Bearer {access_token}'
                }
     #given a specific game id, it returns one games name and cover
-    body = f'fields name, cover.url; where id = {game_id};'
+    body = f'fields name, summary, cover.url, genres.name; where id = {game_id};'
 
     response = requests.post("https://api.igdb.com/v4/games", headers=headers, data= body)
 
