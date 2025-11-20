@@ -28,12 +28,10 @@ def home(request):
     current_user = request.user
     friend_ids = get_accepted_friend_ids(current_user)
     search_form = GameSearchForm()
-    myReviews = Review.objects.filter(user=current_user).select_related('user').order_by('-created_at')
     friend_reviews = Review.objects.filter(user__id__in=friend_ids).select_related('user').order_by('-created_at')
     highest_rated_reviews = Review.objects.select_related('user').order_by('-rating')[:10]
     template = loader.get_template('feed/home.html')
     context = {
-        'myReviews': myReviews, 
         'friend_reviews' : friend_reviews, 
         'highest_rated_reviews': highest_rated_reviews,
         'form': search_form,}

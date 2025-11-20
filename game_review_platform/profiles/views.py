@@ -5,9 +5,12 @@ from .models import Friendship, Profile
 from .forms import FriendRequestForm, UserEditForm, ProfileEditForm
 from django.contrib import messages
 from django.db.models import Q
+from IGDReviews.models import Review
+
 
 @login_required
 def profile(request):
+    user_reviews = Review.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'profiles/profile.html', {'user': request.user})
 
 @login_required
