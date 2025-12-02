@@ -1,35 +1,194 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            background-color: #333d3c;
+            color: #f0e9d2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #f0e9d2;
+        }
+
+        .hero-logo-inline {
+            width: 55px;
+            height: auto;
+            margin-right: -5px;
+            vertical-align: middle;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+        }
+
+        .hero-text {
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        form {
+            background-color: #444c4a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #f0e9d2;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #f0e9d2;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            background-color: #555;
+            color: #f0e9d2;
+            font-size: 1em;
+        }
+
+        input:focus {
+            outline: 2px solid #00f4d8;
+            background-color: #666;
+        }
+
+        button {
+            background-color: #f0e9d2;
+            color: #333d3c;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 25px;
+            font-size: 1em;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        ul.messages {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        ul.messages li {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        ul.messages li.success {
+            background-color: #00b894;
+        }
+
+        a {
+            color: #00f4d8;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-logo-inline {
+                width: 45px;
+                margin-right: 2px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="hero-logo-inline">
+                <span class="hero-text">layTested</span>
+            </h1>
+        </div>
+    </section>
 
-{% if messages %}
-    <ul style='list-style: none; padding: 0; margin-bottom: 20px;'>
-        {% for message in messages%}
-            <li style='
-                {% if message.tags == "success" %}color: green; font-weight-bold;;
-                {% elif message.tags == "error" %}color: red;
-                {% endif %}
-            '>
-                {{ message }}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
-    <h2>Login Page</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <button type="submit">Login</button>
-    </form>
-    <br>
-    <a href="/create_account/">Create an Account</a>
+    <div class="form-container">
+        <h2>Login</h2>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="/create_account/">Don’t have an account? Create one</a>
+    </div>
 </body>
 </html>

@@ -33,6 +33,36 @@ def home(request):
     template = loader.get_template('feed/home.html')
     context = {
         'friend_reviews' : friend_reviews, 
+
+    selected_genre = request.GET.get('genre', '')
+
+    myReviews = Review.objects.filter(user=current_user).select_related('user')
+    friend_reviews = Review.objects.filter(user__id__in=friend_ids).select_related('user')
+    highest_rated_reviews = Review.objects.select_related('user')
+
+    if selected_genre:
+        myReviews = myReviews.filter(genres__icontains=selected_genre)
+        friend_reviews = friend_reviews.filter(genres__icontains=selected_genre)
+        highest_rated_reviews = highest_rated_reviews.filter(genres__icontains=selected_genre)
+
+    myReviews = myReviews.order_by('-created_at')
+    friend_reviews = friend_reviews.order_by('-created_at')
+    highest_rated_reviews = highest_rated_reviews.order_by('-rating')[:10]
+
+
+    all_reviews = Review.objects.exclude(genres='')
+    genres_set = set()
+    for review in all_reviews:
+        if review.genres:
+            genre_list = [g.strip() for g in review.genres.split(',')]
+            genres_set.update(genre_list)
+    template = loader.get_template('feed/home.html')
+    context = {
+        'myReviews': myReviews,
+        'friend_reviews' : friend_reviews,
         'highest_rated_reviews': highest_rated_reviews,
-        'form': search_form,}
+        'form': search_form,
+        'all_genres': sorted(genres_set),
+        'selected_genre': selected_genre,
+    }
     return HttpResponse(template.render(context, request))
