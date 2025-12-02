@@ -36,6 +36,28 @@
             background-color: #e06c6c;
             transform: translateY(-2px);
         }
+        .reviews-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .reviews-section h2 {
+            border-bottom: 2px solid #00f4d8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+        .empty-review-placeholder {
+            color: #a0a0a0;
+            font-style: italic;
+            text-align: center;
+            width: 100%;
+            padding: 40px 20px;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +75,16 @@
         <div>
             <a href="{% url 'edit_profile' %}" class="logout-button" style="background-color: #6a9c89;">Edit Account</a>
             <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+        </div>
+        <div class="reviews-section">
+            <h2>My Reviews</h2>
+            <div class="horizontal-scroll-container">
+                {% for review in user_reviews %}
+                    {% include "reviews/review_card.html" with review=review %}
+                {% empty %}
+                    <p class="empty-review-placeholder">You haven't written any reviews yet. Search for a game to write your first review!</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>
