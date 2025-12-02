@@ -31,8 +31,6 @@ def home(request):
     friend_reviews = Review.objects.filter(user__id__in=friend_ids).select_related('user').order_by('-created_at')
     highest_rated_reviews = Review.objects.select_related('user').order_by('-rating')[:10]
     template = loader.get_template('feed/home.html')
-    context = {
-        'friend_reviews' : friend_reviews, 
 
     selected_genre = request.GET.get('genre', '')
 
