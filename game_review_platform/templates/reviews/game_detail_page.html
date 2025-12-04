@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ game.name }} - Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
     <style>
         body {
             background-color: #333d3c;
@@ -47,6 +49,12 @@
             font-weight: bold;
             transition: background-color 0.2s;
             margin-top: 20px;
+        }
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
         }
         .actions .button:hover {
             background-color: #83bca9;
@@ -125,29 +133,15 @@
             </div>
         </div>
 
-        <h2 class="section-title">User Reviews</h2>
-
-        {% if reviews %}
-            <ul class="reviews-list">
+        <div class="review-box">
+            <div class="label-text">Reviews</div>
+            <div class="horizontal-scroll-container">
                 {% for review in reviews %}
-                    <li class="review-item">
-                        <div class="review-header">
-                            <span class="review-title">{{ review.title }}</span>
-                            <span class="review-stars">
-                                {% for i in "x"|ljust:review.stars %}★{% endfor %}{% for i in "x"|ljust:5|slice:review.stars|length %}☆{% endfor %}
-                            </span>
-                        </div>
-                        <p class="review-meta">
-                            By {{ review.user.username }} on {{ review.created_at|date:"F d, Y" }} |
-                            Playtime: {{ review.playtime }} hours
-                        </p>
-                        <p>{{ review.body|linebreaks }}</p>
-                    </li>
+                    {% include "reviews/review_card.html" with review=review %}
+                {% empty %}
+                    <p class="empty-review-placeholder">No reviews yet.</p>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p class="no-reviews">Be the first to write a review for this game!</p>
-        {% endif %}
-    </div>
+            </div>
+        </div>
 </body>
 </html>
