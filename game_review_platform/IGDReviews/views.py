@@ -3,7 +3,7 @@ from .forms import GameSearchForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 from .igdb_api import search_igdb_games, get_igdb_game_details
 from .models import Review, Vote
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, Q
 
 # Create your views here.
 
@@ -56,8 +56,11 @@ def game_detail_view(request, game_id):
         # The key 'url_big' is set on the cover dictionary
         game_details['cover']['url_big'] = cover_url.replace('t_thumb', 't_cover_big')
 
-    # Fetch reviews from your database for this game
-    reviews = Review.objects.filter(game_id=game_id).select_related('user').order_by('-created_at')
+    # Fetch reviews from your database for this game.
+    # Older reviews (created before adding the `game_id` field) may have the
+    # game's name stored in `game` instead of `game_id`. Query both to be
+    # backwards-compatible.
+    reviews = Review.objects.filter(Q(game_id=game_id) | Q(game=game_details.get('name'))).select_related('user').order_by('-created_at')
 
     # Calculate the average star rating
     # Use float to ensure it's a number that can be formatted

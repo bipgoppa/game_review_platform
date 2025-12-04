@@ -47,20 +47,6 @@
 </div>
 
 
-<div class="review-box">
-    <div class="label-text">My Reviews</div>
-    <div class="horizontal-scroll-container" style="display: flex; /* Lays out children (the cards) in a row */
-    overflow-x: auto; /* Adds a horizontal scrollbar ONLY when needed */
-    gap: 20px; /* Sets the space between each card */
-    padding-bottom: -10px; /* Reduced space below the scrollbar */
-    ">
-        {% for x in myReviews %}
-            {% include "reviews/review_card.html" with review=x %}
-        {% empty %}
-            <p class="empty-review-placeholder">Search for a game and write your first review!</p>
-        {% endfor %}
-    </div>
-</div>
 
 <div class="review-box">
     <div class="label-text">Friends Reviews</div>
