@@ -33,8 +33,9 @@ def search_game_view(request):
     context = {
         'form': form, 
         'results': search_results,
-        'query': query
-    }
+        'query': query,
+        'hide_nav_search': True,
+        }
     
     #shows the result HTML page, given the specific context we pass in
     return render(request, 'reviews/search_results_page.html', context)
