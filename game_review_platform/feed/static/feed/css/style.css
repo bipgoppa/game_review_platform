@@ -175,3 +175,40 @@ img {
     color: #a0a0a0;
     font-style: italic;
 }
+
+/* Global custom scrollbar styles to match feed appearance */
+/* WebKit browsers (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #2b2f2f; /* dark track matching page background */
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #00f4d8; /* accent thumb color used in feed */
+  border-radius: 10px;
+  border: 2px solid #2b2f2f; /* padding around thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #00d9c7;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00f4d8 #2b2f2f; /* thumb track */
+}
+
+/* Make horizontal scrollbars on the card rows a bit taller for easier dragging */
+.horizontal-scroll-container::-webkit-scrollbar {
+  height: 14px;
+}
+
+.horizontal-scroll-container {
+  scrollbar-color: #00f4d8 #2b2f2f;
+}

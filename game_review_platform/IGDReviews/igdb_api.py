@@ -25,8 +25,9 @@ def search_igdb_games(query):
     headers = {'Client-ID' : settings.IGDB_CLIENT_ID,
                'Authorization' : f'Bearer {access_token}'
                }
-    #runs a query in sqlpocalypse searching for 20 games, and returns the name, and cover url
-    body = f'search "{query}"; fields name, cover.url; where game_type = 0; limit 20;'
+    #runs a query in sqlpocalypse searching for 20 games, and returns the id, name, and cover url
+    #Include `id` so callers can identify the matched IGDB game.
+    body = f'search "{query}"; fields id, name, cover.url; where game_type = 0; limit 20;'
 
     #stores the return of the sql search in an object response
     response = requests.post("https://api.igdb.com/v4/games", headers=headers, data= body)
