@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
         color: #f0e9d2;
         font-family: Arial, sans-serif;
         margin: 0;
-        padding: 20px;
+        padding: 0;
     }
 
     /* Main container for centering content */
@@ -137,6 +140,8 @@
 </style>
 </head>
 <body>
+    {% include 'feed/navbar.html' %}
+
     <div class="container">
         <h1>Search for a Game to Review</h1>
 

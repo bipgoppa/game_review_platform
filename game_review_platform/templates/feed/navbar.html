@@ -9,6 +9,8 @@
         <a href="{% url 'friends_page' %}" class="nav-item">Friends</a>
     </div>
     <div class="nav-right">
-        {% include 'reviews/search_results.html' %}
+        {% if not hide_nav_search %}
+            {% include 'reviews/search_results.html' %}
+        {% endif %}
     </div>
 </nav>
