@@ -18,13 +18,25 @@
         position: relative; /* Needed for positioning the delete button */
     }
 
-    .review-cover-art {
-        width: 180px;
-        height: 100%; /* Image will fill the card's height */
-        object-fit: cover; /* Ensures the image fills the space, may crop */
-        border-radius: 4px;
-        flex-shrink: 0; 
-    }
+    /* New class for the <a> tag */
+.review-cover-link {
+    display: block;        /* Makes the link behave like a box */
+    width: 180px;          /* Move fixed width here */
+    height: 100%;          /* Move height here */
+    flex-shrink: 0;        /* Move flex-shrink here */
+    border-radius: 4px;    /* Optional: keep border radius on container */
+    overflow: hidden;      /* mask the image corners */
+    margin-right: 0;       /* Reset margins if needed */
+}
+
+/* Updated class for the <img> tag */
+.review-cover-art {
+    width: 100%;           /* Fill the <a> tag width */
+    height: 100%;          /* Fill the <a> tag height */
+    object-fit: cover;     /* Maintain aspect ratio clipping */
+    display: block;        /* Removes default inline image spacing */
+    border-radius: 0;      /* Let the parent handle radius */
+}
 
     .main-content {
         display: flex;
@@ -196,6 +208,16 @@
     .review-menu-dropdown button {
         color: #ff6b6b; /* Reddish color for delete */
     }
+
+    .reviewer-info a {
+    color: #00f4d8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.reviewer-info a:hover {
+    text-decoration: underline;
+}
 </style>
 
 <div class="review-card">
@@ -213,7 +235,9 @@
         </details>
     </div>
     {% endif %}
-    <img src="{{ review.cover_art}}" class="review-cover-art">
+    <a href="{% url 'game-detail' review.game_id %}" class ="review-cover-link">
+            <img src="{{ review.cover_art}}" class="review-cover-art">
+        </a>
     <div class="main-content">
         <div class="review-header" {% if review.user == request.user %}style="padding-right: 40px;"{% endif %}>
             <h2>{{ review.game }}</h2>
@@ -234,7 +258,7 @@
                 </div>
             </div>
            <div class="reviewer-info">
-                <p>Reviewed by: <strong>{{ review.user.username }}</strong></p> 
+                <p>Reviewed by: <a href="{% url 'user_profile' review.user.username %}">{{ review.user.username }}</a></p>
                 <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>
             </div>
         </div>

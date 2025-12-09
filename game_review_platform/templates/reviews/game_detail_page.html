@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game.name }} - Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+    <style>
+        body {
+            background-color: #333d3c;
+            color: #f0e9d2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .game-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background-color: #4a5453;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .game-header img {
+            width: 250px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .game-info h1 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+        .game-summary {
+            line-height: 1.6;
+        }
+        .actions .button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #6a9c89;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+        .horizontal-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+        .actions .button:hover {
+            background-color: #83bca9;
+        }
+        .section-title {
+            color: #ffffff;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .reviews-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .review-item {
+            background-color: #4a5453;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #6a9c89;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .review-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+        }
+        .review-stars {
+            font-size: 1.2em;
+            color: #ffd700; /* Gold color for stars */
+        }
+        .game-cover {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto 20px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .review-meta {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        .no-reviews {
+            background-color: #4a5453;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            {% if game.cover.url_big %}
+                    <img class="game-cover" src="{{ game.cover.url_big }}" alt="Cover for {{ game.name }}">
+                {% endif %}
+            <div class="game-info">
+                <h1>{{ game.name }}</h1>
+                {% if average_rating %}
+                    <h3>Average Rating: {{ average_rating|floatformat:1 }} / 5.0 ★</h3>
+                {% endif %}
+                <p class="game-summary">{{ game.summary|default:"No summary available." }}</p>
+                <div class="actions">
+                    <a href="{% url 'create-review' game_id=game.id %}" class="button">Write a Review</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-box">
+            <div class="label-text">Reviews</div>
+            <div class="horizontal-scroll-container">
+                {% for review in reviews %}
+                    {% include "reviews/review_card.html" with review=review %}
+                {% empty %}
+                    <p class="empty-review-placeholder">No reviews yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+</body>
+</html>

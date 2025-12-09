@@ -76,11 +76,11 @@
             <a href="{% url 'edit_profile' %}" class="logout-button" style="background-color: #6a9c89;">Edit Account</a>
             <a href="{% url 'logout' %}" class="logout-button">Logout</a>
         </div>
-        <div class="reviews-section">
-            <h2>My Reviews</h2>
+        <div class="review-box">
+            <div class="label-text">My Reviews</div>
             <div class="horizontal-scroll-container">
                 {% for review in user_reviews %}
-                    {% include "reviews/review_card.html" with review=review %}
+                    {% include "reviews/review_card.html" %}
                 {% empty %}
                     <p class="empty-review-placeholder">You haven't written any reviews yet. Search for a game to write your first review!</p>
                 {% endfor %}
