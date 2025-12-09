@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'feed/css/style.css' %}">
+    <title>{{ viewed_user.username }}'s Profile</title>
+    <style>
+        .profile-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #333d3c;
+            border-radius: 8px;
+            color: #f0e9d2;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #555;
+            margin-bottom: 30px;
+        }
+        .avatar-section {
+            flex-shrink: 0;
+        }
+        .avatar-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #6a9c89;
+        }
+        .avatar-placeholder {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #4a5453;
+            color: #f0e9d2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            font-weight: bold;
+            border: 3px solid #6a9c89;
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-info h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            color: #f0e9d2;
+        }
+        .profile-bio {
+            color: #a0a0a0;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .profile-stats {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+        .friend-status {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4a5453;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .friend-status.friends {
+            background-color: #5cb85c;
+            color: white;
+        }
+        .friend-status.pending {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .reviews-section {
+            margin-top: 30px;
+        }
+        .reviews-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0e9d2;
+            padding-bottom: 10px;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 20px;
+        }
+        .review-card-wrapper {
+            background-color: #4a5453;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .review-card-wrapper:hover {
+            transform: translateY(-5px);
+        }
+        .review-header-simple {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .review-header-simple h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #f0e9d2;
+        }
+        .review-stars-simple {
+            color: #00f4d8;
+            font-size: 1.2em;
+        }
+        .review-content-simple {
+            display: flex;
+            gap: 15px;
+        }
+        .review-cover-simple {
+            width: 100px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+        .review-text-simple {
+            flex-grow: 1;
+        }
+        .review-title-simple {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .review-body-simple {
+            line-height: 1.6;
+            color: #d0d0d0;
+        }
+        .review-meta-simple {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #00f4d8;
+        }
+        .no-reviews {
+            text-align: center;
+            color: #a0a0a0;
+            padding: 40px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    {% include 'feed/navbar.html' %}
+
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="avatar-section">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="{{ viewed_user.username }}'s avatar" class="avatar-image">
+                {% else %}
+                    <div class="avatar-placeholder">
+                        {{ viewed_user.username|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="profile-info">
+                <h1>{{ viewed_user.username }}</h1>
+                
+                {% if profile.bio %}
+                    <p class="profile-bio">{{ profile.bio }}</p>
+                {% endif %}
+                
+                <div class="profile-stats">
+                    <strong>{{ user_reviews|length }}</strong> Review{{ user_reviews|length|pluralize }}
+                </div>
+
+                <!-- Friend Status Display (Read-only for now) -->
+                {% if user != viewed_user %}
+                <div class="friend-actions">
+                    {% if friendship_status == 'friends' %}
+                        <div class="friend-status friends">✓ Friends</div>
+                    {% elif friendship_status == 'pending_sent' %}
+                        <div class="friend-status pending">⏳ Friend Request Pending</div>
+                    {% elif friendship_status == 'pending_received' %}
+                        <div class="friend-status pending">📩 Sent You a Friend Request</div>
+                    {% else %}
+                        <div class="friend-status">Not Friends</div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- User's Reviews -->
+        <div class="reviews-section">
+            <h2>{{ viewed_user.username }}'s Reviews</h2>
+            
+            {% if user_reviews %}
+                <div class="reviews-grid">
+                    {% for review in user_reviews %}
+                    <div class="review-card-wrapper">
+                        <div class="review-header-simple">
+                            <h3>{{ review.game }}</h3>
+                            <span class="review-stars-simple">⭐ {{ review.stars }}/5</span>
+                        </div>
+                        <div class="review-content-simple">
+                            {% if review.cover_art %}
+                                <img src="{{ review.cover_art }}" alt="{{ review.game }}" class="review-cover-simple">
+                            {% endif %}
+                            <div class="review-text-simple">
+                                <div class="review-title-simple">{{ review.title }}</div>
+                                <div class="review-body-simple">{{ review.body|truncatewords:50 }}</div>
+                                <div class="review-meta-simple">
+                                    {{ review.playtime }} hrs played • {{ review.created_at|date:"M d, Y" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-reviews">
+                    {{ viewed_user.username }} hasn't written any reviews yet.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

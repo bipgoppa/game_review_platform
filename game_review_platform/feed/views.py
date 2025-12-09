@@ -33,7 +33,7 @@ def home(request):
     template = loader.get_template('feed/home.html')
     context = {
         'friend_reviews' : friend_reviews, 
-
+    }
     selected_genre = request.GET.get('genre', '')
 
     myReviews = Review.objects.filter(user=current_user).select_related('user')
