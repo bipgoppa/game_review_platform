@@ -11,7 +11,11 @@ from IGDReviews.models import Review
 @login_required
 def profile(request):
     user_reviews = Review.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'profiles/profile.html', {'user': request.user, 'user_reviews': user_reviews})
+
+    return render(request, 'profiles/profile.html', {
+        'user': request.user,
+        'user_reviews': user_reviews
+    })
 
 @login_required
 def edit_profile(request):
@@ -91,3 +95,37 @@ def friends_view(request):
         'friends_list': friends_list,
     }
     return render(request, 'profiles/friends.html', context)
+
+@login_required
+def user_profile_view(request, username):
+    viewed_user = get_object_or_404(User, username=username)
+    profile = viewed_user.profile
+
+    user_reviews = viewed_user.reviews.all().order_by('-created_at')
+
+    current_user = request.user
+    friendship_status = None
+    friendship = None
+
+    if current_user != viewed_user:
+        friendship = Friendship.objects.filter(
+            Q(from_user=current_user, to_user=viewed_user) | Q(from_user=viewed_user, to_user=current_user)
+        ).first()
+
+        if friendship:
+            if friendship.status == 'accepted':
+                friendship_status = 'friends'
+            elif friendship.from_user == current_user:
+                friendship_status = 'pending_sent'
+            else:
+                friendship_status = 'pending_received'
+
+    context = {
+        'viewed_user': viewed_user,
+        'profile': profile,
+        'user_reviews': user_reviews,
+        'friendship_status': friendship_status,
+        'friendship': friendship,
+    }
+
+    return render(request, 'profiles/user_profile.html', context)

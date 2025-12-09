@@ -208,6 +208,16 @@
     .review-menu-dropdown button {
         color: #ff6b6b; /* Reddish color for delete */
     }
+
+    .reviewer-info a {
+    color: #00f4d8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.reviewer-info a:hover {
+    text-decoration: underline;
+}
 </style>
 
 <div class="review-card">
@@ -248,7 +258,7 @@
                 </div>
             </div>
            <div class="reviewer-info">
-                <p>Reviewed by: <strong>{{ review.user.username }}</strong></p> 
+                <p>Reviewed by: <a href="{% url 'user_profile' review.user.username %}">{{ review.user.username }}</a></p>
                 <p class="review-timestamp">Posted on: {{ review.created_at|date:"F j, Y" }}</p>
             </div>
         </div>

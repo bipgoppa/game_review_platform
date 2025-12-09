@@ -47,7 +47,6 @@ def home(request):
     friend_reviews = friend_reviews.order_by('-created_at')
     highest_rated_reviews = highest_rated_reviews.order_by('-rating')[:10]
 
-
     all_reviews = Review.objects.exclude(genres='')
     genres_set = set()
     for review in all_reviews:

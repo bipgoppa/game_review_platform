@@ -16,15 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 from IGDReviews import views
 from django.conf import settings
 from django.conf.urls.static import static
 from profiles import views as profile_views
 
 
+def home_redirect(request):
+    if request.user.is_authenticated:
+        return redirect('feed')
+    return redirect('login')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('login.urls')),
+    path('login/', include('login.urls')),
     path('feed/', include('feed.urls'), name='feed-home'),
     path('create_account/', include('create_account.urls')),
 
@@ -32,8 +38,12 @@ urlpatterns = [
     path('review/new/<int:game_id>/', views.create_review_view, name = 'create-review'),
     path('review/edit/<int:review_id>/', views.edit_review, name='edit_review'),
     path('review/delete/<int:review_id>/', views.delete_review, name='delete_review'),
-    path('profile/', include('profiles.urls')),
-    path('Friends/', profile_views.friends_view, name='friends_page'),
+    path('profile/', profile_views.profile, name='profile'),
+    path('profile/edit/', profile_views.edit_profile, name='edit_profile'),
+    path('', include('profiles.urls')),
+    path('friends/', profile_views.friends_view, name='friends_page'),
     path('', include('IGDReviews.urls')), # Include the URLs for voting
+    
+    path('', home_redirect, name='home'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
