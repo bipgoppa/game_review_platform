@@ -99,13 +99,49 @@ def friends_view(request):
 @login_required
 def user_profile_view(request, username):
     viewed_user = get_object_or_404(User, username=username)
-    profile = viewed_user.profile
-
+    profile = Profile.objects.get_or_create(user=viewed_user)[0]
+    
     user_reviews = viewed_user.reviews.all().order_by('-created_at')
 
     current_user = request.user
     friendship_status = None
     friendship = None
+
+    # Handle sending a friend request from this page
+    if request.method == 'POST' and 'send_request' in request.POST:
+        # Prevent sending to self
+        if current_user == viewed_user:
+            messages.error(request, "You cannot send a friend request to yourself.")
+            return redirect('user_profile', username=viewed_user.username)
+
+        # Check if a friendship or request already exists in either direction
+        existing = Friendship.objects.filter(
+            (Q(from_user=current_user, to_user=viewed_user) | Q(from_user=viewed_user, to_user=current_user))
+        ).first()
+
+        if existing:
+            messages.warning(request, f"A friendship or request with {viewed_user.username} already exists.")
+        else:
+            Friendship.objects.create(from_user=current_user, to_user=viewed_user, status='pending')
+            messages.success(request, f"Friend request sent to {viewed_user.username}.")
+
+        return redirect('user_profile', username=viewed_user.username)
+
+    # Handle removing a friend from this page
+    if request.method == 'POST' and 'remove_friend' in request.POST:
+        # Find the accepted friendship between the two users
+        friendship_to_remove = Friendship.objects.filter(
+            (Q(from_user=current_user, to_user=viewed_user) | Q(from_user=viewed_user, to_user=current_user)),
+            status='accepted'
+        ).first()
+
+        if friendship_to_remove:
+            friendship_to_remove.delete()
+            messages.success(request, f"{viewed_user.username} has been removed from your friends.")
+        else:
+            messages.warning(request, "No active friendship found to remove.")
+
+        return redirect('user_profile', username=viewed_user.username)
 
     if current_user != viewed_user:
         friendship = Friendship.objects.filter(

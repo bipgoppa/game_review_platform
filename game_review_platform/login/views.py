@@ -16,10 +16,10 @@ def user_login(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, "Login successful!")
+                messages.success(request, "Login successful!", extra_tags='auth')
                 return redirect('/feed/')
             else:
-                messages.error(request, "Invalid username or password.")
+                messages.error(request, "Invalid username or password.", extra_tags='auth')
                 return redirect('login')
 
     else:
@@ -30,6 +30,8 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
+    # Clear any lingering messages so the login page starts fresh
+    list(messages.get_messages(request))
     return redirect('login')
 
 @login_required
