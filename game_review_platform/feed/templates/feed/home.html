@@ -8,13 +8,7 @@
 
 
 <body>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {# messages intentionally not shown here to avoid displaying non-account messages #}
 
 {% include 'feed/navbar.html' %}
 <section class="hero-section">

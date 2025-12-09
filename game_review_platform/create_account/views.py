@@ -11,8 +11,8 @@ def create_account(request):
         form = AccountForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account created successfully! Please log in.")
-            return redirect('/login')
+            messages.success(request, "Account created successfully! Please log in.", extra_tags='auth')
+            return redirect('login')
 
     else:
         form = AccountForm()
