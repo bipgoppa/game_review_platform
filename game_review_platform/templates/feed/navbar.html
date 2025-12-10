@@ -3,7 +3,12 @@
     <a href="{% url 'feed' %}" class="nav-logo-link">
         <img src="{% static 'feed/images/logo.png' %}" alt="PlayTested Logo" class="nav-logo">
     </a>
-    <div class="nav-center">
+    <button class="hamburger-menu" id="hamburgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="nav-center" id="navCenter">
         <a href="{% url 'feed' %}" class="nav-item">Feed</a>
         <a href="{% url 'profile' %}" class="nav-item">My Profile</a>
         <a href="{% url 'friends_page' %}" class="nav-item">Friends</a>
@@ -14,3 +19,34 @@
         {% endif %}
     </div>
 </nav>
+
+<script>
+    const hamburger = document.getElementById('hamburgerMenu');
+    const navCenter = document.getElementById('navCenter');
+
+    function updateNavbarDisplay() {
+        if (window.innerWidth <= 768) {
+            hamburger.style.display = 'flex';
+        } else {
+            hamburger.style.display = 'none';
+            hamburger.classList.remove('active');
+            navCenter.classList.remove('active');
+            navCenter.style.display = 'flex';
+        }
+    }
+
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navCenter.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-center a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navCenter.classList.remove('active');
+        });
+    });
+
+    window.addEventListener('resize', updateNavbarDisplay);
+    updateNavbarDisplay();
+</script>

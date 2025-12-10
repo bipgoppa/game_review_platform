@@ -61,7 +61,7 @@
             <h2 class="section-title">Incoming Friend Requests</h2>
             {% for request in incoming_requests %}
                 <div class="request-item">
-                    <span>{{ request.from_user.username }} wants to be your friend.</span>
+                    <span><a href="{% url 'user_profile' request.from_user.username %}" style="color: #00f4d8; text-decoration: none;">{{ request.from_user.username }}</a> wants to be your friend.</span>
                     <form method="post" action="{% url 'friends_page' %}">
                         {% csrf_token %}
                         <input type="hidden" name="friendship_id" value="{{ request.id }}">
@@ -86,8 +86,8 @@
             <h2 class="section-title">Your Friends</h2>
             {% for friend in friends_list %}
                 <div class="friend-item">
-                    {{ friend.username }}
-                </div>
+    <a href="{% url 'user_profile' friend.username %}" style="color: #00f4d8; text-decoration: none;">{{ friend.username }}</a>
+</div>
             {% empty %}
                 <p>You haven't added any friends yet. Send a request!</p>
             {% endfor %}
